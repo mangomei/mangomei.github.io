@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>猫大刚主页</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="renderer" content="webkit">
+  <link rel="stylesheet" href="https://mg.meiflower.top/oss/cdn/npm/docsify@4/lib/themes/vue.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/static/favicon/site.webmanifest">
+  <style>
+    /* .markdown-section iframe {
+      border: 1px solid #eee;
+      min-width: 0 !important;
+    } */
+    :root {
+      --docsifytabs-border-color: #ededed;
+      --docsifytabs-tab-highlight-color: #42b983;
+    }
+    .accordion.active {
+        background: rgba(0, 0, 0, 0.1);
+        border-left: 3px solid #42b983 !important;
+    }
+    .sidebar-toggle {
+      left: 15px !important;
+      bottom: 15px !important;
+    }
+    .my-img{
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    .markdown-section {
+      max-width: 90% !important;
+    }
+    aside.toc-nav {
+      margin-right: 10px !important; 
+      width: 200px !important;
+    }
+    @media only screen and (min-width: 1300px){
+      section.content {
+          padding-right: 200px !important;
+      }
+    }
+    .plantuml {
+      width:100%;
+      overflow:scroll;
+      border:1px solid #ddd;
+      border-radius: 3px;
+    }
+    .mg-badge {
+      color: #fff;
+      display: inline-block;
+      padding-left: 8px;
+      padding-right: 8px;
+      text-align: center;
+      background-color: #42b983;
+      border-radius: 10%;
+      position: relative;
+      top: -15px;
+      left: 0px;
+      font-size: 15px;
+    }
+    @media only screen and (max-width: 768px) {
+        .sidebar-pin{
+            z-index: -1;
+        }
+    }
+    .sidebar-toggle {
+        left: 8px !important;
+        bottom: 12px !important;
+    }
+  </style>
+  <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+  <!--[if lt IE 9]>
+    <script src="https://gcore.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://gcore.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: '程序猫大刚<span class="mg-badge">1.2.0</span>',
+      repo: 'https://gitee.com/mgang/my-project.git',
+      coverpage: false,
+      loadNavbar: true,
+      loadSidebar: true,
+      autoHeader: true,
+      onlyCover: false,
+      routerMode: 'history',
+      subMaxLevel: 5,
+      //basePath: 'http://mg.meiflower.top/',
+      sidebarDisplayLevel: 5, // set sidebar display level
+      count:{
+        countable:true,
+        fontsize:'0.9em',
+        color:'rgb(90,90,90)',
+        language:'chinese'
+      },
+      search: 'auto',
+      // search: {
+      //   maxAge: 86400000, // Expiration time, the default one day
+      //   paths: [], // or 'auto'
+      //   placeholder: '开始搜索',
+      //   noData: '啥也没有!'
+      // },
+      copyCode: {
+        buttonText : '点击复制',
+        errorText  : '错误',
+        successText: '复制成功'
+      },
+      footer: {
+        copy: '<span>程序猫大刚 &copy; 2022</span>',
+        auth: '<a href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备17082965号</a>',
+        pre: '',
+        style: 'text-align: center;',
+        class: 'className'
+      },
+      vueComponents: {
+        'card-link': {
+          template: `
+            <a :href="href" target="_blank">
+              {{title}}
+            </a>
+          `,
+          props:["id","title"],
+          computed: {
+            href(){
+              return "https://mg.meiflower.top/cardview/index.html?id="+this.id;
+            }
+          },
+          data() {
+            return {
+              
+            }
+          }
+        },
+        'card-area': {
+          template: `
+           <div>
+            <iframe  :src="href" :style="{width:cardWidth,height:cardHeight}"></iframe>
+           </div>
+          `,
+          props:["id","height","width"],
+          computed: {
+            theId(){
+              return "card_" + this.id;
+            },
+            href(){
+              return "https://mg.meiflower.top/cardview/index.html?id="+this.id;
+            },
+            cardHeight(){
+              var result = "400px";
+              if(this.height){
+                result = this.height;
+              }
+              return result;
+            },
+            cardWidth(){
+              var result = "100%";
+              if(this.width){
+                result = this.width;
+              }
+              return result;
+            }
+          },
+          created() {
+            
+          },
+          data() {
+            return {
+              
+            }
+          }
+        },
+        'card-area-list': {
+          template: `
+           <div>
+            <iframe v-for="href in hrefs" :src="href" :style="{width:cardWidth,height:cardHeight,float:'left',marginRight:'5px'}"></iframe>
+           </div>
+          `,
+          props:["ids","height","width"],
+          computed: {
+            hrefs(){
+              var list = [];
+              var arr = this.ids.split(",");
+              for(var index in arr){
+                list.push("http://mg.meiflower.top/cardview/index.html?id="+arr[index]);
+              }
+              return list;
+            },
+            cardHeight(){
+              var result = "400px";
+              if(this.height){
+                result = this.height;
+              }
+              return result;
+            },
+            cardWidth(){
+              var result = "100%";
+              if(this.width){
+                result = this.width;
+              }
+              return result;
+            }
+          },
+          created() {
+            
+          },
+          data() {
+            return {
+              
+            }
+          }
+        }
+      },
+      timeUpdater: {
+        text: "<div align='right' width='100%' style='color:gray;font-size:16px;margin-top:10px;'>最后更新时间: {docsify-updated}</div>",
+        formatUpdated: "{YYYY}-{MM}-{DD} {HH}:{mm}",
+      },
+      // note tip warning attention https://github.com/fzankl/docsify-plugin-flexible-alerts
+      'flexible-alerts': {
+        style: 'callout'
+      },
+      progress: {
+          position: "top",
+          color: "var(--theme-color,#42b983)",
+          height: "3px",
+      },
+      tabs: {
+        persist    : true,      // default
+        sync       : true,      // default
+        theme      : 'classic', // default
+        tabComments: true,      // default
+        tabHeadings: true       // default
+      },
+      docsifyBackTop: {
+        size: 32,           	// 数值，组件大小，默认值32。
+        bottom: 15,         	// 数值，组件底部偏移距离，默认值15。
+        right: 15,          	// 数值，组件右侧偏移距离，默认值15。
+        logo: 'top',				// logo:字符串或svg矢量图代码，默认为svg代码图标。
+        bgColor: '#42b983'    	// 背景颜色，#fff、pink等，logo为svg图标时，不填。
+      },
+      // plantuml: {
+      //   skin: 'default'
+      // },
+      // docsify-plugin-toc
+      toc: {
+        tocMaxLevel: 5,
+        target: 'h2, h3, h4, h5,h6',
+        ignoreHeaders:  ['<!-- {docsify-ignore} -->', '<!-- {docsify-ignore-all} -->']
+      },
+      // 百度统计ID
+      baiduTjId: "17b94311795f1539081c4a0a0f14d4fb",
+      // giscus评论
+      giscus:{
+        repo: "mg0324/docsify-comments",
+        repoId: "R_kgDOI68LwA",
+        category: "Announcements",
+        categoryId: "DIC_kwDOI68LwM4CUDhM",
+        mapping: "url",
+        reactionsEnabled: "0",
+        strict: "1",
+        emitMetadata: "0",
+        inputPosition: "bottom",
+        theme: "light",
+        lang: "zh-CN",
+        loading: "lazy"
+      },
+      // 开启卜算子
+      busuanzi: true,
+      // docsify ads 配置广告
+      ads: [
+        {
+          img: 'https://dn-lego-static.qbox.me/cps/1638355965-480x300.jpg',
+          href: 'https://s.qiniu.com/zqiMBz'
+        },
+        {
+          img: 'https://dn-lego-static.qbox.me/cps/1638355965-480x300.jpg',
+          href: 'https://s.qiniu.com/VJFJvi'
+        },
+        {
+          img: 'https://dn-lego-static.qbox.me/cps/1638355799-480300.jpg',
+          href: 'https://s.qiniu.com/7nM3uy'
+        },
+        {
+          img: 'https://dn-lego-static.qbox.me/cps/1638268412-480x300.jpg',
+          href: 'https://s.qiniu.com/VZvaii'
+        },
+        {
+          img: 'https://dn-lego-static.qbox.me/cps/1638268217-480x300.jpg',
+          href: 'https://s.qiniu.com/nMnaQj'
+        },
+        {
+          img: 'https://dn-lego-static.qbox.me/cps/1638267917-480x300.jpg',
+          href: 'https://s.qiniu.com/aqAneu'
+        },
+        // 腾讯云 
+        {
+          img: 'https://upload-dianshi-1255598498.file.myqcloud.com/upload/nodir/345X200-9ae456f58874df499adf7c331c02cb0fed12b81d.jpg',
+          href: 'https://url.cn/00DqsRrc'
+        },
+        {
+          img: 'https://dscache.tencent-cloud.cn/upload//345-200-78bcc66c42d6998810cebb6eb4158bcce824f9b1.jpg',
+          href: 'https://url.cn/DjhfFECm'
+        },
+        {
+          img: 'https://upload-dianshi-1255598498.file.myqcloud.com/345_200-665434f41e982c3b542694850e5ea1cd9ae0b49b.png',
+          href: 'https://url.cn/ufa6Vl2B'
+        },
+        {
+          img: 'https://upload-dianshi-1255598498.file.myqcloud.com/345x200--2953d058277cb63c6b1cd127285163335cd6751e.jpg',
+          href: 'https://url.cn/JBdlnq0N'
+        },
+        {
+          img: 'https://upload-dianshi-1255598498.file.myqcloud.com/%E8%85%BE%E8%AE%AF%E4%BA%913_345%20200_1-7aeb8eb451fd6de33676444898914b1ff3298996.jpg',
+          href: 'https://url.cn/m0TwE0AC'
+        },
+        {
+          img: 'https://upload-dianshi-1255598498.file.myqcloud.com/345x200-89eeba55a2f49008e686e1a51e14bfe79f63af13.png',
+          href: 'https://url.cn/mpZn2VBe'
+        },
+        {
+          img: 'https://upload-dianshi-1255598498.file.myqcloud.com/345-200-b28f7dee9552f4241ea6a543f15a9798049701d4.jpg',
+          href: 'https://url.cn/KM23RG9M'
+        },
+        {
+          img: 'https://mg.meiflower.top/oss/ad/txy-light.png',
+          href: 'https://url.cn/qB5O1eqf'
+        },
+        {
+          img: 'https://mg.meiflower.top/oss/ad/wuying.png',
+          href: 'https://www.aliyun.com/activity/new/index?userCode=m2qy9jsf'
+        }
+      ]
+    }
+  </script>
+  <script src="https://mg.meiflower.top/oss/cdn/npm/vue@2/dist/vue.min.js"></script>
+  <!-- Docsify v4 -->
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify@4"></script>
+  <!-- 搜索 -->
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify/lib/plugins/search.min.js"></script>
+  <!-- 图片放大缩小支持 -->
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  <!-- 拷贝文字内容 -->
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+  <!-- 字数插件 -->
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify-count@latest/dist/countable.min.js"></script>
+  <!-- 分页导航 -->
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <!-- 侧边栏扩展与折叠 -->
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
+  <!-- busuanzi -->
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify-busuanzi@1.0.1/dist/docsify-busuanzi.min.js"></script>
+  <!-- 页脚信息 -->
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify-footer-enh/dist/docsify-footer-enh.min.js"></script>
+  <!-- 引入 layui.js -->
+  <script src="https://mg.meiflower.top/oss/cdn/npm/layui@2.7.6/dist/layui.js"></script>
+  <script src="https://mg.meiflower.top/oss/cdn/npm/heyui"></script>
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify-updated/src/time-updater.min.js"></script>
+  <!-- Latest -->
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify-plugin-flexible-alerts"></script>
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify-progress@latest/dist/progress.min.js"></script>
+  <!-- docsify-accordion -->
+  <link rel="stylesheet" href="https://mg.meiflower.top/oss/cdn/npm/docsify-accordion/src/style.css">
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify-accordion/src/index.js"></script>
+  <!-- docsify-tabs (latest v1.x.x) -->
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify-tabs@1"></script>
+  <script src="https://mg.meiflower.top/oss/cdn/gh/Sumsung524/docsify-backTop/dist/docsify-backTop.min.js"></script>
+  <!-- <script src="//mg.meiflower.top/oss/cdn/npm/docsify-plantuml/dist/docsify-plantuml.min.js"></script> -->
+  <!-- docsify-plugin-toc -->
+  <link rel="stylesheet" href="https://mg.meiflower.top/oss/cdn/npm/docsify-plugin-toc@1.3.1/dist/light.css">
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify-plugin-toc@1.3.1/dist/docsify-plugin-toc.min.js"></script>
+  <!-- 百度统计 -->
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify-baidu-tj@1.0.2/dist/docsify-baidu-tj.min.js"></script> 
+  <!-- giscus评论  -->
+  <link rel="stylesheet" href="https://mg.meiflower.top/oss/cdn/npm/docsify-giscus@1.0.2/dist/giscus.css">
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify-giscus@1.0.2/dist/docsify-giscus.min.js"></script> 
+  <!-- docsify-pangu 加空格-->
+  <!-- <script src="https://mg.meiflower.top/oss/cdn/npm/docsify-pangu/lib/pangu.min.js"></script> -->
+  <!-- docsify-kroki 支持全热门图形化语言-->
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify-kroki"></script>
+  <!-- docsify ads -->
+  <script src="https://mg.meiflower.top/oss/cdn/npm/docsify-ads@1.0.4/dist/docsify-ads.min.js"></script>
+  <!-- google ads -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8042780489159124"
+     crossorigin="anonymous"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>
