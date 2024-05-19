@@ -1,5 +1,5 @@
 <!-- 引入 layui.css -->
-<link href="https://mg.meiflower.top/oss/cdn/npm/layui@2.7.6/dist/css/layui.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/layui@2.7.6/dist/css/layui.css" rel="stylesheet">
 
 <style type="text/css">
 .layui-row{
