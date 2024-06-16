@@ -339,6 +339,13 @@
                             parts:[
                                 '免费mp3@https://music.y444.cn/#/',
                             ]
+                        },
+                        {
+                            moduleId: 'store-img',
+                            moduleName: '收藏图',
+                            parts:[
+                                '中国地图@https://www.gov.cn/xhtml/2016gov/images/guoqing/bigmap.jpg',
+                            ]
                         }
                     ]
                 };
