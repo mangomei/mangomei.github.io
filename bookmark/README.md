@@ -165,7 +165,8 @@
                             moduleId: 'ai-about',
                             moduleName: 'AI相关',
                             parts:[
-                                '面魔法ChatGPT@https://chat.rawchat.cc/',
+                                'OpenAI ChatGPT@https://chatgpt.com/',
+                                '免魔法ChatGPT@https://chat.rawchat.cc/',
                                 'AI合集@https://github.com/LiLittleCat/awesome-free-chatgpt',
                                 '使用中的AI@https://openai.aifree.site/',
                                 '文心一言@https://yiyan.baidu.com/',
