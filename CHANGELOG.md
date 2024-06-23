@@ -1,4 +1,7 @@
 # 更新日志
+## 2024-06-23
+1. 完善框架，修改back to top插件。
+
 ## 2024-05-21
 1. 书签模块，AI部分加入https://chat.rawchat.cc/免魔法ChatGPT，亲测可用。
 

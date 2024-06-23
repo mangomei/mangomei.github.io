@@ -238,12 +238,12 @@
         tabComments: true,      // default
         tabHeadings: true       // default
       },
-      docsifyBackTop: {
-        size: 32,           	// 数值，组件大小，默认值32。
-        bottom: 15,         	// 数值，组件底部偏移距离，默认值15。
-        right: 15,          	// 数值，组件右侧偏移距离，默认值15。
-        logo: 'top',				// logo:字符串或svg矢量图代码，默认为svg代码图标。
-        bgColor: '#42b983'    	// 背景颜色，#fff、pink等，logo为svg图标时，不填。
+      scrollToTop: {
+        auto: true,
+        text: 'Top',
+        right: 15,
+        bottom: 15,
+        offset: 500
       },
       // plantuml: {
       //   skin: 'default'
@@ -370,7 +370,7 @@
   <script src="https://cdn.jsdelivr.net/npm/docsify-accordion/src/index.js"></script>
   <!-- docsify-tabs (latest v1.x.x) -->
   <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
-  <script src="https://mg.meiflower.top/oss/cdn/gh/Sumsung524/docsify-backTop/dist/docsify-backTop.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-scroll-to-top@1.0.2/dist/docsify-scroll-to-top.min.js"></script>
   <!-- <script src="//mg.meiflower.top/oss/cdn/npm/docsify-plantuml/dist/docsify-plantuml.min.js"></script> -->
   <!-- docsify-plugin-toc -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-plugin-toc@1.3.1/dist/light.css">
