@@ -4,7 +4,7 @@
 <div class="layui-row">
     <div class="layui-col-md3">
         <div class="layui-fluid" style="text-align:center;">
-            <img src="../static/head.jpg" style="width:200px;"/><br/>
+            <img src="https://res.meiflower.top/.netlify/images?url=/static/head.jpg&fit=cover&w=200&h=200"/><br/>
             <h6 style="margin-top:5px;">猫大刚 * Mango Mei</h6>
         </div>
     </div>
