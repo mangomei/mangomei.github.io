@@ -97,6 +97,7 @@
                         {
                             moduleId: 'mango-card',
                             moduleName: '芒果卡片',
+                            use: false,
                             parts:[
                                     '芒果网盘@http://disk.meiflower.top/',
                                     '芒果卡片@https://mg.meiflower.top/card-admin/#/login',
@@ -362,7 +363,7 @@
             },
             methods: {
                 aHref(v){
-                    return "?id=" + v.moduleId;
+                    return window.location.href + "?id=" + v.moduleId;
                 },
                 theName(v){
                     return v.split('@')[0];
