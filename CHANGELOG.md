@@ -1,4 +1,7 @@
 # 更新日志
+## 2024-07-07
+1. 开发[docsify-auth](https://www.npmjs.com/package/docsify-auth)插件，并集成，设置个人相关文章密码认证。
+
 ## 2024-06-27
 1. 完善读书模块，新增书籍阅读记录。
 
