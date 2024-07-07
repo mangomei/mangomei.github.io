@@ -5,5 +5,6 @@
   
 * 快速跳转
   * [我的B站](https://space.bilibili.com/1174515315)
+  * [个人](/personal/index)
   * [CSDN](https://blog.csdn.net/mg0324)
   * [我的博客](http://mg.meiflower.top/mb/)
