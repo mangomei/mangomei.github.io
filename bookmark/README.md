@@ -340,6 +340,7 @@
                             moduleName: '娱乐资源',
                             parts:[
                                 '免费mp3@https://music.y444.cn/#/',
+                                '腾讯视频@https://v.qq.com/'
                             ]
                         },
                         {
