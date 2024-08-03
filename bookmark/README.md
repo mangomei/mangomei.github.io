@@ -167,6 +167,7 @@
                             moduleName: 'AI相关',
                             parts:[
                                 'OpenAI ChatGPT@https://chatgpt.com/',
+                                'Poe AI@https://poe.com/',
                                 '免魔法ChatGPT@https://chat.rawchat.cc/',
                                 'AI合集@https://github.com/LiLittleCat/awesome-free-chatgpt',
                                 '使用中的AI@https://openai.aifree.site/',
