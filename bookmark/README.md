@@ -194,7 +194,8 @@
                                 'netlify@https://app.netlify.com/',
                                 'vercel@https://vercel.com/dashboard',
                                 'cloudflare@https://dash.cloudflare.com/',
-                                'render@https://dashboard.render.com/web/srv-ckq83he2eoec739dofe0/settings'
+                                'render@https://dashboard.render.com/web/srv-ckq83he2eoec739dofe0/settings',
+                                'sealos云操作系统@https://bja.sealos.run/'
                             ]
                         },
                         {
