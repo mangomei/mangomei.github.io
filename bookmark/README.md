@@ -166,10 +166,11 @@
                             moduleId: 'ai-about',
                             moduleName: 'AI相关',
                             parts:[
-                                'OpenAI ChatGPT@https://chatgpt.com/',
+                                'ChatGPT@https://chatgpt.com/',
                                 'Poe AI@https://poe.com/',
-                                'claude@https://claude.ai/chat/e9a44cfc-e12d-49cc-b9e7-85ef6dd587d2',
+                                'Claude@https://claude.ai/chat/e9a44cfc-e12d-49cc-b9e7-85ef6dd587d2',
                                 '智普清言https://chatglm.cn/main/alltoolsdetail',
+                                'Kimi@https://kimi.moonshot.cn/',
                                 '林哥的大模型野榜@https://lyihub.com/chat',
                                 '免魔法ChatGPT@https://chat.rawchat.cc/',
                                 'AI合集@https://github.com/LiLittleCat/awesome-free-chatgpt',

@@ -1,7 +1,7 @@
 # 更新日志
 ## 2024-08-xx
 1. 书签模块，pass平台部分新增sealos云操作系统书签。
-2. 书签模块，ai部分新增poe ai书签、claude、林哥的大模型野榜、等。
+2. 书签模块，ai部分新增poe ai书签、claude、林哥的大模型野榜、kimi等。
 
 ## 2024-07-xx
 1. 开发[docsify-auth](https://www.npmjs.com/package/docsify-auth)插件，并集成，设置个人相关文章密码认证。
