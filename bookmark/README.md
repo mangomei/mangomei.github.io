@@ -168,6 +168,7 @@
                             parts:[
                                 'OpenAI ChatGPT@https://chatgpt.com/',
                                 'Poe AI@https://poe.com/',
+                                'claude@https://claude.ai/chat/e9a44cfc-e12d-49cc-b9e7-85ef6dd587d2',
                                 '免魔法ChatGPT@https://chat.rawchat.cc/',
                                 'AI合集@https://github.com/LiLittleCat/awesome-free-chatgpt',
                                 '使用中的AI@https://openai.aifree.site/',
@@ -175,8 +176,16 @@
                                 '通义千问@https://tongyi.aliyun.com/',
                                 '360GPT@https://www.so.com/zt/invite.html#/',
                                 '星火认知@https://xinghuo.xfyun.cn/',
+                                'huggingface chat@https://huggingface.co/chat/',
                                 'picsart@https://picsart.com/create',
                                 'freegpt@https://freegpt.one/'
+                            ]
+                        },
+                        {
+                            moduleId: 'sms-platform',
+                            moduleName: '短信激活',
+                            parts:[
+                                'sms-activate@https://sms-activate.io/cn'
                             ]
                         },
                         {
