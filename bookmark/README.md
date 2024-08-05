@@ -183,7 +183,8 @@
                                 '星火认知@https://xinghuo.xfyun.cn/',
                                 'huggingface chat@https://huggingface.co/chat/',
                                 'picsart@https://picsart.com/create',
-                                'freegpt@https://freegpt.one/'
+                                'freegpt@https://freegpt.one/',
+                                'ai排行榜@https://chat.lmsys.org/'
                             ]
                         },
                         {
