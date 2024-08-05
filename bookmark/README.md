@@ -184,7 +184,8 @@
                                 'huggingface chat@https://huggingface.co/chat/',
                                 'picsart@https://picsart.com/create',
                                 'freegpt@https://freegpt.one/',
-                                'ai排行榜@https://chat.lmsys.org/'
+                                'ai排行榜@https://chat.lmsys.org/',
+                                'google aistudio@https://aistudio.google.com/app/prompts/new_chat'
                             ]
                         },
                         {
