@@ -151,6 +151,7 @@
                             parts:[
                                 'QQ邮箱@https://mail.qq.com/cgi-bin/frame_html?sid=05f9Ec9lbnidJGUG&r=f6adff210c8f5793ce3d74cfcaa93fde&lang=zh',
                                 '163邮箱@https://mail.163.com/',
+                                'icloud邮箱@https://www.icloud.com.cn/mail/',
                                 'iconfont@https://www.iconfont.cn/manage/index?manage_type=myprojects&projectId=4036078'
                             ]
                         },
