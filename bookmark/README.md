@@ -372,6 +372,14 @@
                             parts:[
                                 '中国地图@https://www.gov.cn/xhtml/2016gov/images/guoqing/bigmap.jpg',
                             ]
+                        },
+                        {
+                            moduleId: 'useful-tool',
+                            moduleName: '有用工具',
+                            parts:[
+                                'HEU_KMS_Activator激活工具@https://github.com/zbezj/HEU_KMS_Activator/',
+                                '西游VPN@https://xiyoulink.net/'
+                            ]
                         }
                     ]
                 };
