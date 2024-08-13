@@ -30,7 +30,7 @@
 .nav{
     position: fixed;
     top: 10%;
-    width: 140px;
+    width: 160px;
     right: 20px;
     z-index: 999;
     background: #eee;
