@@ -380,6 +380,13 @@
                                 'HEU_KMS_Activator激活工具@https://github.com/zbezj/HEU_KMS_Activator/',
                                 '西游VPN@https://xiyoulink.net/'
                             ]
+                        },
+                        {
+                            moduleId: 'for-miaowa',
+                            moduleName: '妙娃工具',
+                            parts:[
+                                'ChromeDriver下载@https://googlechromelabs.github.io/chrome-for-testing/#stable'
+                            ]
                         }
                     ]
                 };
