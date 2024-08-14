@@ -99,7 +99,8 @@
                             moduleName: '硬件相关',
                             use: false,
                             parts:[
-                                    'CPU性能天梯图@https://www.mydrivers.com/zhuanti/tianti/cpu/index.html'
+                                    '桌面CPU性能天梯图@https://www.mydrivers.com/zhuanti/tianti/cpu/index.html',
+                                    '桌面显卡天梯图@https://www.mydrivers.com/zhuanti/tianti/gpu/index.html'
                             ]
                         },
                         {
