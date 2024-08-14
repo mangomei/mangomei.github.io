@@ -95,15 +95,11 @@
                             ]
                         },
                         {
-                            moduleId: 'mango-card',
-                            moduleName: '芒果卡片',
+                            moduleId: 'about-hardware',
+                            moduleName: '硬件相关',
                             use: false,
                             parts:[
-                                    '芒果网盘@http://disk.meiflower.top/',
-                                    '芒果卡片@https://mg.meiflower.top/card-admin/#/login',
-                                    '芒果卡片构建@http://mg.meiflower.top/cp/bqr/',
-                                    '点子队列@http://mg.meiflower.top/cp/keyqueue',
-                                    '卡片预览@http://mg.meiflower.top/cardview/index.html?id=5f3245cc14434434810bece36ea97125'
+                                    'CPU性能天梯图@https://www.mydrivers.com/zhuanti/tianti/cpu/index.html'
                             ]
                         },
                         {
