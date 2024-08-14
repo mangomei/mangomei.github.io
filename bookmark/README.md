@@ -29,8 +29,8 @@
 }
 .nav{
     position: fixed;
-    top: 20%;
-    width: 140px;
+    top: 10%;
+    width: 160px;
     right: 20px;
     z-index: 999;
     background: #eee;
@@ -375,6 +375,13 @@
                             parts:[
                                 'HEU_KMS_Activator激活工具@https://github.com/zbezj/HEU_KMS_Activator/',
                                 '西游VPN@https://xiyoulink.net/'
+                            ]
+                        },
+                        {
+                            moduleId: 'for-miaowa',
+                            moduleName: '妙娃工具',
+                            parts:[
+                                'ChromeDriver下载@https://googlechromelabs.github.io/chrome-for-testing/#stable'
                             ]
                         }
                     ]
