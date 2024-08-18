@@ -2,6 +2,9 @@
 - [待办](todo/index.md)
 - [书签](bookmark/README.md)
 - [阅读](read/README.md)
+- 硬件
+    - [CPU](hardware/cpu.md)
+    - [计算机配置](hardware/compute.md)
 <!-- - [ChatGPT问答](chatGPT/qa.md) -->
 - 技术
     - [主框架](skill/README.md)
