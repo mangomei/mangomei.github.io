@@ -123,6 +123,7 @@
                             moduleId: 'offen-tool',
                             moduleName: '常用工具',
                             parts:[
+                                '金山文档@https://www.kdocs.cn/latest',
                                 'chrome商店@https://chrome.google.com/webstore/category/extensions',
                                 '定稿设计@https://gd74865930.qiye.gaoding.com/smartdesign',
                                 '百度统计@https://tongji.baidu.com/main/homepage/22511391/homepage/index',
