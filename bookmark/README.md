@@ -185,7 +185,8 @@
                                 'ai排行榜@https://chat.lmsys.org/',
                                 'google aistudio@https://aistudio.google.com/app/prompts/new_chat',
                                 'huggingface@https://huggingface.co/',
-                                'ollama@https://ollama.com/'
+                                'ollama@https://ollama.com/',
+                                'wps AI@https://ai.wps.cn/'
                             ]
                         },
                         {

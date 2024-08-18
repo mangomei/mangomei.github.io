@@ -3,7 +3,9 @@
 1. 书签模块，pass平台部分新增sealos云操作系统书签。
 2. 书签模块，ai部分新增poe ai书签、claude、林哥的大模型野榜、kimi、groq、cloudflare ai playground、ai排行榜等。
 3. 新增命令模块，添加git常用命令。
-4. 书签模块，新增妙娃工具
+4. 书签模块，新增妙娃工具。
+5. 新增硬件到左侧菜单。
+6. 书签模块，新增wps ai。
 
 ## 2024-07-xx
 1. 开发[docsify-auth](https://www.npmjs.com/package/docsify-auth)插件，并集成，设置个人相关文章密码认证。
