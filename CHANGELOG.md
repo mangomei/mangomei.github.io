@@ -1,4 +1,7 @@
 # 更新日志
+## 2024-09-xx
+1. 硬件计算机模块，新增组机单地址。
+
 ## 2024-08-xx
 1. 书签模块，pass平台部分新增sealos云操作系统书签。
 2. 书签模块，ai部分新增poe ai书签、claude、林哥的大模型野榜、kimi、groq、cloudflare ai playground、ai排行榜等。

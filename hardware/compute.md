@@ -1,3 +1,6 @@
+## 组机单
+请跳转查看： https://www.kdocs.cn/l/crLxRNcNSLyR?from=docs
+
 ## 分析配置
 ### 妙头电脑
 这份配置是妙的电脑配置。
