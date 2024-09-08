@@ -123,3 +123,12 @@
         </tr>
     </tbody>
 </table>
+
+## 我的Mac Pro 2015
+* CPU: Intel(R) Core(TM) i7-5557U CPU @ 3.10GHz
+* 内存: DDR3 1867MHz 4GB * 2
+* 硬盘：APPLE SSD SM0256G
+* 显卡：集成，Intel Iris Graphics 6100
+* 无线网卡：Broadcom BCM43xx 1.0 (7.77.111.1 AirPortDriverBrcmNIC-1710.4)
+
+![](https://res.meiflower.top/.netlify/images?url=/compute/macPro2015.png)
