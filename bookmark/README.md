@@ -100,7 +100,8 @@
                             use: false,
                             parts:[
                                     '桌面CPU性能天梯图@https://www.mydrivers.com/zhuanti/tianti/cpu/index.html',
-                                    '桌面显卡天梯图@https://www.mydrivers.com/zhuanti/tianti/gpu/index.html'
+                                    '桌面显卡天梯图@https://www.mydrivers.com/zhuanti/tianti/gpu/index.html',
+                                    '鲁大师天梯榜@https://www.ludashi.com/rank/index.html'
                             ]
                         },
                         {

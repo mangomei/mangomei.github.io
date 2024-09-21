@@ -4,12 +4,15 @@
 以下为windows的相关经验。
 ## 装机篇
 包含如下常用装机软件：
-* 腾讯电脑管家
+* [腾讯电脑管家](https://guanjia.qq.com/page/product_download.html)
 * 驱动安装，可使用驱动精灵，或者主板对于的管家，比如ASUS管家等，还可以用windows自带的设备管理器右键有问题的设备在网络中找适合的驱动。
+* [鲁大师](https://www.ludashi.com/) - 跑分
 * Google浏览器(可在软件管家中安装)
 * [GHelper](https://d3.itmopcdn.com/down8/ghelper_v2.6.2_itmop.com.zip) - 安装VPN
+* [激活工具](https://github.com/zbezj/HEU_KMS_Activator/releases) - 可激活windows
 * 搜狗拼音(可在软件管家中安装)
 * 微信(可在软件管家中安装)
+* DiskGenius(可在软件管家中安装) - 磁盘分区工具
 
 
 
