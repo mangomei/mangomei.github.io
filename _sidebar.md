@@ -2,6 +2,8 @@
 - [待办](todo/index.md)
 - [书签](bookmark/README.md)
 - [阅读](read/README.md)
+- 经验
+    - [新电脑复活](exp/for-new-system.md)
 - 硬件
     - [CPU](hardware/cpu.md)
     - [计算机配置](hardware/compute.md)
