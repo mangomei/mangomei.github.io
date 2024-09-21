@@ -132,3 +132,66 @@
 * 无线网卡：Broadcom BCM43xx 1.0 (7.77.111.1 AirPortDriverBrcmNIC-1710.4)
 
 ![](https://res.meiflower.top/.netlify/images?url=/compute/macPro2015.png)
+
+### mangodiy电脑
+<table>
+    <thead>
+        <tr>
+            <th>组件</th>
+            <th>规格</th>
+            <th>价格</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>处理器</td>
+            <td>英特尔 12th Gen Core i5-12600KF 一十零核</td>
+            <td>1169</td>
+        </tr>
+        <tr>
+            <td>内存</td>
+            <td>光威天策DDR5 6000MHz 16Gx2</td>
+            <td>569</td>
+        </tr>
+        <tr>
+            <td>显卡</td>
+            <td>NVIDIA GeForce RTX 4060 2x oc 8G 万图师</td>
+            <td>2179</td>
+        </tr>
+        <tr>
+            <td>主板</td>
+            <td>华硕 B760M-AYW WIFI D5</td>
+            <td>800</td>
+        </tr>
+        <tr>
+            <td>显示器</td>
+            <td>长城 CGC2570 2570 (23.5 英寸)</td>
+            <td>200</td>
+        </tr>
+        <tr>
+            <td>主硬盘</td>
+            <td>512 GB (Fanxiang S100Pro 512GB)</td>
+            <td>195</td>
+        </tr>
+        <tr>
+            <td>电源</td>
+            <td>长城 金牌全模组 650W</td>
+            <td>369</td>
+        </tr>
+        <tr>
+            <td>机箱</td>
+            <td>积至 海景房 机箱 + 3炫彩风扇</td>
+            <td>104</td>
+        </tr>
+        <tr>
+            <td>散热</td>
+            <td>酷冷至尊暴雪TK400 4热管 CPU散热器</td>
+            <td>54</td>
+        </tr>
+        <tr>
+            <td>合计</td>
+            <td></td>
+            <td>5439</td>
+        </tr>
+    </tbody>
+</table>
