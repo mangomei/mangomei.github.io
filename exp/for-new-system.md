@@ -40,6 +40,15 @@ Java(TM) SE Runtime Environment (build 17.0.11+7-LTS-207)
 Java HotSpot(TM) 64-Bit Server VM (build 17.0.11+7-LTS-207, mixed mode, sharing)
 ```
 
+### 安装python
+1. 先下载 [python3.6](https://www.python.org/downloads/release/python-368/)
+2. 安装后，查看版本。
+``` shell
+C:\Users\mangodiy>python --version
+Python 3.6.8
+```
+
 ### 常用工具
 1. [vscode](https://code.visualstudio.com/)
 2. [idea](https://www.jetbrains.com/idea/download/?section=windows)
+3. [pycharm](https://www.jetbrains.com/pycharm/download/?section=windows)
