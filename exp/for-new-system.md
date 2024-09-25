@@ -20,12 +20,14 @@
 ### 安装git
 1. 先下载 [git](https://git-scm.com/download/win)
 2. 生成ssh key
+
 ``` shell
 git config --global user.email "1092017732@qq.com"
 git config --global user.name "mangodiy"
 ssh-keygen -t rsa -b 4096 -C "1092017732@qq.com"
 ```
 3. 到对应用户的`.ssh`目录下，查看公钥，并配置到在线仓库
+
 ``` shell
 cat ~/.ssh/id_rsa.pub
 ```
@@ -33,6 +35,7 @@ cat ~/.ssh/id_rsa.pub
 ### 安装jdk
 1. 先下载 [jdk17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 2. 安装后，设置环境变量。
+
 ``` shell
 C:\Users\mangodiy>java -version
 java version "17.0.11" 2024-04-16 LTS
@@ -43,6 +46,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 17.0.11+7-LTS-207, mixed mode, sharing)
 ### 安装python
 1. 先下载 [python3.6](https://www.python.org/downloads/release/python-368/)
 2. 安装后，查看版本。
+
 ``` shell
 C:\Users\mangodiy>python --version
 Python 3.6.8
