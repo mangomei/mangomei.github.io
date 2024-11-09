@@ -43,6 +43,34 @@ Java(TM) SE Runtime Environment (build 17.0.11+7-LTS-207)
 Java HotSpot(TM) 64-Bit Server VM (build 17.0.11+7-LTS-207, mixed mode, sharing)
 ```
 
+### 安装maven
+1. 先下载 [maven](https://maven.apache.org/download.cgi)
+2. 解压后，设置环境变量
+``` shell
+C:\Users\mangodiy>mvn -version
+Apache Maven 3.9.9 (8e8579a9e76f7d015ee5ec7bfcdc97d260186937)
+Maven home: D:\env\apache-maven-3.9.9
+Java version: 17.0.11, vendor: Oracle Corporation, runtime: D:\Program Files\Java\jdk-17
+Default locale: zh_CN, platform encoding: GBK
+OS name: "windows 10", version: "10.0", arch: "amd64", family: "windows"
+```
+3. 设置阿里云仓库，加速下载速度
+在代码库下新建settings.xml文件，并设置maven的配置文件为该文件。
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings>
+    <mirrors>
+        <mirror>
+            <id>alimaven</id>
+            <name>aliyun maven</name>
+            <mirrorOf>central</mirrorOf>
+            <url>https://maven.aliyun.com/repository/central</url>
+        </mirror>
+    </mirrors>
+</settings>
+```
+
 ### 安装python
 1. 先下载 [python3.6](https://www.python.org/downloads/release/python-368/)
 2. 安装后，查看版本。
