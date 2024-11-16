@@ -58,7 +58,6 @@ OS name: "windows 10", version: "10.0", arch: "amd64", family: "windows"
 在代码库下新建settings.xml文件，并设置maven的配置文件为该文件。
 ``` xml
 <?xml version="1.0" encoding="UTF-8"?>
-
 <settings>
     <mirrors>
         <mirror>
