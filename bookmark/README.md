@@ -188,7 +188,8 @@
                                 'google aistudio@https://aistudio.google.com/app/prompts/new_chat',
                                 'huggingface@https://huggingface.co/',
                                 'ollama@https://ollama.com/',
-                                'wps AI@https://ai.wps.cn/'
+                                'wps AI@https://ai.wps.cn/',
+                                'AI论文@https://bohrium.dp.tech/'
                             ]
                         },
                         {
