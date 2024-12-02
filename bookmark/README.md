@@ -193,6 +193,13 @@
                             ]
                         },
                         {
+                            moduleId: 'outside',
+                            moduleName: '外面的世界',
+                            parts:[
+                                'X.com@https://x.com/home'
+                            ]
+                        },
+                        {
                             moduleId: 'sms-platform',
                             moduleName: '短信激活',
                             parts:[

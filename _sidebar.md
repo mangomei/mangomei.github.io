@@ -19,6 +19,8 @@
     - 计算机语言
       - [Java体系学习](https://java.meiflower.top/)
       - [Python体系学习](skill/python/index.md)
+    - 代码
+      - [编程规范](code/standard.md)
     - 中间件
         - 分布式消息队列
             - [kafka](skill/middleware/mq/kafka.md)
