@@ -386,7 +386,8 @@
                             moduleName: '有用工具',
                             parts:[
                                 'HEU_KMS_Activator激活工具@https://github.com/zbezj/HEU_KMS_Activator/',
-                                '西游VPN@https://xiyoulink.net/'
+                                '西游VPN@https://xiyoulink.net/',
+                                'jimmmVPN@https://jimmm.life/system/dashboard'
                             ]
                         },
                         {
