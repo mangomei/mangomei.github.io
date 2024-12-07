@@ -160,7 +160,7 @@
         </tr>
         <tr>
             <td>主板</td>
-            <td>华硕 B760M-AYW WIFI D5</td>
+            <td><a href="https://www.asus.com.cn/motherboards-components/motherboards/others/b760m-ayw-wifi/" target="_blank">华硕 B760M-AYW WIFI D5</a></td>
             <td>800</td>
         </tr>
         <tr>
@@ -170,8 +170,8 @@
         </tr>
         <tr>
             <td>主硬盘</td>
-            <td>512 GB (Fanxiang S100Pro 512GB)</td>
-            <td>195</td>
+            <td>致钛TiPlus7100 PCie 4.0 1T SSD</td>
+            <td>519</td>
         </tr>
         <tr>
             <td>电源</td>
@@ -191,7 +191,7 @@
         <tr>
             <td>合计</td>
             <td></td>
-            <td>5439</td>
+            <td>5763</td>
         </tr>
     </tbody>
 </table>
