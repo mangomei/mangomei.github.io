@@ -121,6 +121,14 @@
                             ]
                         },
                         {
+                            moduleId: 'for-read',
+                            moduleName: '阅读资源',
+                            parts:[
+                                'zlibrary@https://z-library.sk/',
+                                '图书廊@https://www.tuishulang.com/'
+                            ]
+                        },
+                        {
                             moduleId: 'offen-tool',
                             moduleName: '常用工具',
                             parts:[
@@ -141,9 +149,7 @@
                                 '图片压缩@https://tinypng.com/',
                                 '即时设计@https://js.design/workspace',
                                 '可画设计@https://www.canva.cn/',
-                                '可画视频编辑@https://www.canva.cn/design/DAFz6qoiO6Y/6Avs1vl-RckbASeqI9gn1g/edit',
-                                'zlibrary@https://z-lib.id/',
-                                '图书廊@https://www.tuishulang.com/'
+                                '可画视频编辑@https://www.canva.cn/design/DAFz6qoiO6Y/6Avs1vl-RckbASeqI9gn1g/edit'
 
                             ]
                         },
