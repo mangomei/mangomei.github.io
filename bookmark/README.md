@@ -141,7 +141,8 @@
                                 '图片压缩@https://tinypng.com/',
                                 '即时设计@https://js.design/workspace',
                                 '可画设计@https://www.canva.cn/',
-                                '可画视频编辑@https://www.canva.cn/design/DAFz6qoiO6Y/6Avs1vl-RckbASeqI9gn1g/edit'
+                                '可画视频编辑@https://www.canva.cn/design/DAFz6qoiO6Y/6Avs1vl-RckbASeqI9gn1g/edit',
+                                'zlibrary@https://z-lib.id/'
                             ]
                         },
                         {
