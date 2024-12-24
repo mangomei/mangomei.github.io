@@ -7,7 +7,7 @@
 - 硬件
     - [CPU](hardware/cpu.md)
     - [计算机配置](hardware/compute.md)
-<!-- - [ChatGPT问答](chatGPT/qa.md) -->
+- [ChatGPT问答](chatGPT/qa.md)
 - 技术
     - [主框架](skill/README.md)
     - 前端
