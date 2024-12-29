@@ -314,6 +314,7 @@
                                 '牛客网@https://www.nowcoder.com/users/204732625',
                                 '力扣@https://leetcode.cn/u/mangomei/',
                                 'labuladong算法笔记@https://labuladong.gitee.io/algo/home/',
+                                '代码随想录@https://programmercarl.com/',
                                 '算法可视化visualgo@https://visualgo.net/zh',
                                 '代码可视化@https://algorithm-visualizer.org/'
                             ]
