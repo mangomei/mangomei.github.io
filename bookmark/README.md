@@ -313,7 +313,7 @@
                                 '算法4可视化@https://algs4.cs.princeton.edu/home/',
                                 '牛客网@https://www.nowcoder.com/users/204732625',
                                 '力扣@https://leetcode.cn/u/mangomei/',
-                                'labuladong算法笔记@https://labuladong.gitee.io/algo/home/',
+                                'labuladong算法笔记@https://labuladong.online/algo/',
                                 '代码随想录@https://programmercarl.com/',
                                 '算法可视化visualgo@https://visualgo.net/zh',
                                 '代码可视化@https://algorithm-visualizer.org/'
