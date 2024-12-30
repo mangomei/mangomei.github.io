@@ -155,7 +155,7 @@
         </tr>
         <tr>
             <td>显卡</td>
-            <td>NVIDIA GeForce RTX 4060 2x oc 8G 万图师</td>
+            <td><a href="https://hk.msi.com/Graphics-Card/GeForce-RTX-4060-VENTUS-2X-BLACK-8G-OC">NVIDIA GeForce RTX 4060 2x oc 8G 万图师</a></td>
             <td>2179</td>
         </tr>
         <tr>
