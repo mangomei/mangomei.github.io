@@ -116,7 +116,8 @@
                                     '大刚学设计模式@https://dp.meiflower.top/#/',
                                     'Java学习体系文档@https://java.meiflower.top/#/',
                                     '走上架构之路@https://arch.meiflower.top/#/',
-                                    'CPU修行文档@http://mgang.gitee.io/s-cpu/#/'
+                                    'CPU修行文档@https://scpu.netlify.app/#/',
+                                    '大刚学MySQL@https://mysql.meiflower.top/#/'
                                     
                             ]
                         },
