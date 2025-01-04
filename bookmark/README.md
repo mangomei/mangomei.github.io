@@ -89,7 +89,6 @@
                                     'idea启动插件@https://gitee.com/mgang/idea-plugin-start-time',
                                     '我的分享@https://gitee.com/mgang/my-share',
                                     'leetcode刷题笔记@https://gitee.com/mgang/leet-code',
-                                    '我的日历打卡@https://mg.meiflower.top/calendar/m2/2023/index.html',
                                     'B站web直播入口@https://live.bilibili.com/p/html/web-hime/index.html?visit_id=287t35tjj1us',
                                     
                             ]
@@ -126,7 +125,8 @@
                             moduleName: '阅读资源',
                             parts:[
                                 'zlibrary@https://z-library.sk/',
-                                '图书廊@https://www.tuishulang.com/'
+                                '图书廊@https://www.tuishulang.com/',
+                                '谷歌学术搜索@https://scholar.google.com/schhp?hl=zh-CN&as_sdt=2007'
                             ]
                         },
                         {
