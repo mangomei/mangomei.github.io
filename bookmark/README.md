@@ -181,6 +181,7 @@
                                 'Claude@https://claude.ai/chat/e9a44cfc-e12d-49cc-b9e7-85ef6dd587d2',
                                 '智普清言@https://chatglm.cn/main/alltoolsdetail',
                                 'Kimi@https://kimi.moonshot.cn/',
+                                '深度求索@https://chat.deepseek.com/',
                                 'groq@https://groq.com/',
                                 'cloudflare ai playground@https://playground.ai.cloudflare.com/',
                                 '林哥的大模型野榜@https://lyihub.com/chat',
