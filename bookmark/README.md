@@ -200,7 +200,8 @@
                                 'huggingface@https://huggingface.co/',
                                 'ollama@https://ollama.com/',
                                 'wps AI@https://ai.wps.cn/',
-                                'AI论文@https://bohrium.dp.tech/'
+                                'AI论文@https://bohrium.dp.tech/',
+                                'fastgpt@https://cloud.fastgpt.cn/chat?appId=678a6fa51b052aaa9de3e95a'
                             ]
                         },
                         {
@@ -226,7 +227,7 @@
                         }, 
                         {
                             moduleId: 'free-paas',
-                            moduleName: 'paas平台',
+                            moduleName: 'paas平台/云平台',
                             parts:[
                                 'fly.io@https://fly.io/dashboard',
                                 'Railway@https://railway.app/dashboard',
