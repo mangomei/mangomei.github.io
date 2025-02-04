@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>俄罗斯方块 - 增强版</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        #game-container {
+            display: flex;
+            gap: 30px;
+            filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
+        }
+
+        #game-board {
+            border: 3px solid #333;
+            background: rgba(0,0,0,0.8);
+            border-radius: 5px;
+        }
+
+        #info-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding: 20px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 10px;
+            border: 1px solid #444;
+        }
+
+        .next-piece {
+            border: 2px solid #444;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+        }
+
+        #score {
+            color: #ffd700;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <audio id="move-sound" src="https://assets.mixkit.co/active_storage/sfx/2827/2827-preview.mp3"></audio>
+    <audio id="rotate-sound" src="https://assets.mixkit.co/active_storage/sfx/2828/2828-preview.mp3"></audio>
+    <audio id="clear-sound" src="https://assets.mixkit.co/active_storage/sfx/2816/2816-preview.mp3"></audio>
+    <audio id="gameover-sound" src="https://assets.mixkit.co/active_storage/sfx/2819/2819-preview.mp3"></audio>
+
+    <div id="game-container">
+        <canvas id="game-board" width="300" height="600"></canvas>
+        <div id="info-panel">
+            <div>
+                <h3>得分: <span id="score">0</span></h3>
+                <h3>下一个:</h3>
+                <canvas id="next-piece" width="100" height="100"></canvas>
+            </div>
+            <div>
+                <p>控制键：</p>
+                <p>←→: 移动</p>
+                <p>↑: 旋转</p>
+                <p>↓: 快速下落</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 初始化音效
+        const sounds = {
+            move: document.getElementById('move-sound'),
+            rotate: document.getElementById('rotate-sound'),
+            clear: document.getElementById('clear-sound'),
+            gameover: document.getElementById('gameover-sound')
+        };
+
+        // 粒子系统
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 5;
+                this.vy = Math.random() * -10 - 5;
+                this.life = 1;
+                this.color = color;
+                this.size = Math.random() * 4 + 2;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.5;
+                this.life -= 0.02;
+            }
+
+            draw(ctx) {
+                ctx.save();
+                ctx.globalAlpha = this.life;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        let particles = [];
+
+        // 初始化画布
+        const canvas = document.getElementById('game-board');
+        const ctx = canvas.getContext('2d');
+        const nextPieceCanvas = document.getElementById('next-piece');
+        const nextPieceCtx = nextPieceCanvas.getContext('2d');
+        const BLOCK_SIZE = 30;
+        const BOARD_WIDTH = 10;
+        const BOARD_HEIGHT = 20;
+        
+        // 游戏状态
+        let board = Array(BOARD_HEIGHT).fill().map(() => Array(BOARD_WIDTH).fill(0));
+        let currentPiece = null;
+        let nextPiece = null;
+        let score = 0;
+        
+        // 方块形状
+        const SHAPES = [
+            [[1, 1, 1, 1]], // I
+            [[1, 1], [1, 1]], // O
+            [[1, 1, 1], [0, 1, 0]], // T
+            [[1, 1, 1], [1, 0, 0]], // L
+            [[1, 1, 1], [0, 0, 1]], // J
+            [[1, 1, 0], [0, 1, 1]], // S
+            [[0, 1, 1], [1, 1, 0]]  // Z
+        ];
+        
+        const COLORS = ['#00f0f0', '#f0f000', '#a000f0', '#f0a000', '#0000f0', '#00f000', '#f00000'];
+
+        // 初始化游戏
+        function initGame() {
+            createNewPiece();
+            gameLoop();
+        }
+
+        // 创建新方块
+        function createNewPiece() {
+            currentPiece = nextPiece || {
+                shape: SHAPES[Math.floor(Math.random() * SHAPES.length)],
+                color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                x: Math.floor(BOARD_WIDTH/2) - 1,
+                y: 0
+            };
+            
+            nextPiece = {
+                shape: SHAPES[Math.floor(Math.random() * SHAPES.length)],
+                color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                x: 0,
+                y: 0
+            };
+            
+            drawNextPiece();
+        }
+
+        // 绘制游戏板（添加发光效果）
+        function drawBoard() {
+            ctx.fillStyle = 'rgba(0,0,0,0.8)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // 绘制网格
+            ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+            for (let y = 0; y < BOARD_HEIGHT; y++) {
+                for (let x = 0; x < BOARD_WIDTH; x++) {
+                    ctx.strokeRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+                }
+            }
+
+            // 绘制已固定的方块（带内发光效果）
+            for (let y = 0; y < BOARD_HEIGHT; y++) {
+                for (let x = 0; x < BOARD_WIDTH; x++) {
+                    if (board[y][x]) {
+                        drawBlock(x, y, board[y][x]);
+                    }
+                }
+            }
+        }
+
+        // 绘制单个方块（带立体效果）
+        function drawBlock(x, y, color) {
+            ctx.save();
+            
+            // 主体
+            ctx.fillStyle = color;
+            ctx.fillRect(x * BLOCK_SIZE + 1, y * BLOCK_SIZE + 1, BLOCK_SIZE-2, BLOCK_SIZE-2);
+            
+            // 立体边框
+            ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+            ctx.beginPath();
+            ctx.moveTo(x * BLOCK_SIZE, y * BLOCK_SIZE);
+            ctx.lineTo((x+1) * BLOCK_SIZE, y * BLOCK_SIZE);
+            ctx.lineTo((x+1) * BLOCK_SIZE, (y+1) * BLOCK_SIZE);
+            ctx.stroke();
+            
+            // 高光
+            ctx.fillStyle = 'rgba(255,255,255,0.1)';
+            ctx.fillRect(x * BLOCK_SIZE + 2, y * BLOCK_SIZE + 2, BLOCK_SIZE-6, 3);
+            
+            ctx.restore();
+        }
+
+        // 绘制当前方块（带阴影效果）
+        function drawPiece() {
+            // 绘制阴影
+            const shadowY = calculateShadowY();
+            ctx.fillStyle = currentPiece.color + '40';
+            currentPiece.shape.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value) {
+                        ctx.fillRect(
+                            (currentPiece.x + x) * BLOCK_SIZE,
+                            (shadowY + y) * BLOCK_SIZE,
+                            BLOCK_SIZE-1,
+                            BLOCK_SIZE-1
+                        );
+                    }
+                });
+            });
+
+            // 绘制方块本体
+            ctx.fillStyle = currentPiece.color;
+            currentPiece.shape.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value) {
+                        drawBlock(currentPiece.x + x, currentPiece.y + y, currentPiece.color);
+                    }
+                });
+            });
+        }
+
+        // 计算阴影位置
+        function calculateShadowY() {
+            let shadowY = currentPiece.y;
+            while (true) {
+                shadowY++;
+                if (checkCollision(currentPiece.x, shadowY, currentPiece.shape)) {
+                    return shadowY - 1;
+                }
+            }
+        }
+
+        // 碰撞检测
+        function collision() {
+            return checkCollision(currentPiece.x, currentPiece.y, currentPiece.shape);
+        }
+
+        function checkCollision(x, y, shape) {
+            return shape.some((row, dy) => 
+                row.some((value, dx) => {
+                    if (!value) return false;
+                    const newX = x + dx;
+                    const newY = y + dy;
+                    return newX < 0 || 
+                           newX >= BOARD_WIDTH ||
+                           newY >= BOARD_HEIGHT ||
+                           (newY >= 0 && board[newY][newX]);
+                })
+            );
+        }
+
+        // 固定方块到棋盘
+        function lockPiece() {
+            currentPiece.shape.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value) {
+                        board[currentPiece.y + y][currentPiece.x + x] = currentPiece.color;
+                    }
+                });
+            });
+            
+            // 消除满行
+            clearLines();
+            createNewPiece();
+            
+            if (collision()) {
+                sounds.gameover.play();
+                explodeBoard();
+                setTimeout(() => {
+                    alert('游戏结束! 得分: ' + score);
+                    location.reload();
+                }, 1000);
+            }
+        }
+
+        // 消除行时的爆炸效果
+        function explodeBoard() {
+            for (let y = 0; y < BOARD_HEIGHT; y++) {
+                for (let x = 0; x < BOARD_WIDTH; x++) {
+                    if (board[y][x]) {
+                        for (let i = 0; i < 5; i++) {
+                            particles.push(new Particle(
+                                x * BLOCK_SIZE + BLOCK_SIZE/2,
+                                y * BLOCK_SIZE + BLOCK_SIZE/2,
+                                board[y][x]
+                            ));
+                        }
+                    }
+                }
+            }
+        }
+
+        // 消除完整行
+        function clearLines() {
+            let linesCleared = 0;
+            
+            for (let y = BOARD_HEIGHT - 1; y >= 0; y--) {
+                if (board[y].every(cell => cell)) {
+                    // 添加消除特效
+                    sounds.clear.play();
+                    createLineClearEffect(y);
+                    
+                    board.splice(y, 1);
+                    board.unshift(Array(BOARD_WIDTH).fill(0));
+                    linesCleared++;
+                    y++;
+                }
+            }
+            
+            if (linesCleared > 0) {
+                score += linesCleared * 100;
+                document.getElementById('score').textContent = score;
+            }
+        }
+
+        // 创建消除行的粒子效果
+        function createLineClearEffect(y) {
+            for (let x = 0; x < BOARD_WIDTH; x++) {
+                for (let i = 0; i < 3; i++) {
+                    particles.push(new Particle(
+                        x * BLOCK_SIZE + BLOCK_SIZE/2,
+                        y * BLOCK_SIZE + BLOCK_SIZE/2,
+                        board[y][x]
+                    ));
+                }
+            }
+        }
+
+        // 游戏循环（包含粒子更新）
+        function gameLoop() {
+            currentPiece.y++;
+            if (collision()) {
+                currentPiece.y--;
+                lockPiece();
+            }
+            
+            // 更新粒子
+            particles = particles.filter(p => p.life > 0);
+            particles.forEach(p => p.update());
+            
+            drawBoard();
+            drawParticles();
+            drawPiece();
+            setTimeout(() => requestAnimationFrame(gameLoop), 500);
+        }
+
+        // 绘制粒子
+        function drawParticles() {
+            ctx.save();
+            particles.forEach(p => p.draw(ctx));
+            ctx.restore();
+        }
+
+        // 控制处理（添加音效）
+        document.addEventListener('keydown', event => {
+            switch(event.key) {
+                case 'ArrowLeft':
+                    currentPiece.x--;
+                    if (collision()) currentPiece.x++;
+                    else sounds.move.play();
+                    break;
+                case 'ArrowRight':
+                    currentPiece.x++;
+                    if (collision()) currentPiece.x--;
+                    else sounds.move.play();
+                    break;
+                case 'ArrowDown':
+                    currentPiece.y++;
+                    if (collision()) {
+                        currentPiece.y--;
+                        lockPiece();
+                    }
+                    sounds.move.play();
+                    break;
+                case 'ArrowUp':
+                    if (rotatePiece()) sounds.rotate.play();
+                    break;
+            }
+            drawBoard();
+            drawPiece();
+        });
+
+        // 旋转方块
+        function rotatePiece() {
+            const rotated = currentPiece.shape[0].map((_, i) =>
+                currentPiece.shape.map(row => row[i]).reverse()
+            );
+            
+            const previousShape = currentPiece.shape;
+            currentPiece.shape = rotated;
+            
+            if (collision()) {
+                currentPiece.shape = previousShape;
+                return false;
+            }
+            return true;
+        }
+
+        // 开始游戏
+        initGame();
+    </script>
+</body>
+</html>
