@@ -180,6 +180,7 @@
                                 'ChatGPT@https://chatgpt.com/',
                                 'Poe AI@https://poe.com/',
                                 '硅基流动模型工厂@https://cloud.siliconflow.cn/models',
+                                '火山方舟@https://console.volcengine.com/ark/region:ark+cn-beijing/experience/chat',
                                 'Claude@https://claude.ai/chat/e9a44cfc-e12d-49cc-b9e7-85ef6dd587d2',
                                 'Kimi@https://kimi.moonshot.cn/',
                                 '智普清言@https://chatglm.cn/main/alltoolsdetail',
