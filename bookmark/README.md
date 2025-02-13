@@ -198,6 +198,7 @@
                                 'ai排行榜@https://chat.lmsys.org/',
                                 'google aistudio@https://aistudio.google.com/app/prompts/new_chat',
                                 'huggingface@https://huggingface.co/',
+                                '模搭@https://www.modelscope.cn/models',
                                 'ollama@https://ollama.com/',
                                 'wps AI@https://ai.wps.cn/',
                                 'AI论文@https://bohrium.dp.tech/',
