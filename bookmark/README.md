@@ -78,7 +78,6 @@
                                     '我的项目@https://gitee.com/mgang/my-project',
                                     '猫大刚主页@https://mg.meiflower.top/',
                                     '我的计划@https://mg.meiflower.top/plan/',
-                                    '我的B站空间@https://space.bilibili.com/1174515315',
                                     '我的博客@https://mg.meiflower.top/mb/',
                                     'marp分享@http://marp.meiflower.top/',
                                     '待办列表@http://todo.meiflower.top/',
@@ -170,6 +169,14 @@
                             parts:[
                                 'Free DNS@https://dns.he.net/index.cgi',
                                 'ssl证书申请@https://freessl.cn/'
+                            ]
+                        },
+                        {
+                            moduleId: 'self-up',
+                            moduleName: '自媒体运营',
+                            parts:[
+                                '小红书@https://creator.xiaohongshu.com/new/home?source=official',
+                                '我的B站空间@https://space.bilibili.com/1174515315'
                             ]
                         },
                         {
