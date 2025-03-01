@@ -176,7 +176,8 @@
                             moduleName: '自媒体运营',
                             parts:[
                                 '小红书@https://creator.xiaohongshu.com/new/home?source=official',
-                                '我的B站空间@https://space.bilibili.com/1174515315'
+                                '我的B站空间@https://space.bilibili.com/1174515315',
+                                '可画设计@https://www.canva.cn/'
                             ]
                         },
                         {
