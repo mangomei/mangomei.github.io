@@ -9,4 +9,3 @@
 scp -r * root@node:/docs
 ```
 
-https://www.svgviewer.dev/svg-to-png
