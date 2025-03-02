@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" width="1080" height="1350">
+  <!-- Background with solid fill -->
+  <rect width="1080" height="1350" fill="#FFFFFF"/>
+  
+  <!-- Title - using standard web-safe font -->
+  <text x="540" y="150" font-family="Arial, Helvetica, sans-serif" font-size="60" font-weight="bold" text-anchor="middle" fill="#000000">Maven 依赖作用域解析</text>
+  
+  <!-- Simplified decorative line -->
+  <rect x="340" y="175" width="400" height="5" fill="#E53935"/>
+  
+  <!-- Legend for packaging - simplified shapes -->
+  <rect x="620" y="210" width="20" height="20" fill="#4CAF50"/>
+  <text x="650" y="226" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#333333">会被打包</text>
+  
+  <rect x="750" y="210" width="20" height="20" fill="#F44336"/>
+  <text x="780" y="226" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#333333">不会被打包</text>
+  
+  <!-- Content sections - with simplified corners -->
+  <!-- 1. compile -->
+  <rect x="140" y="250" width="800" height="150" fill="#F9F9F9" stroke="#EEEEEE" stroke-width="2"/>
+  <text x="180" y="310" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="bold" fill="#E53935">1. compile（默认）</text>
+  <text x="180" y="360" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#333333">适用于所有阶段（编译、测试、运行），常用于库依赖</text>
+  <circle cx="160" cy="300" r="10" fill="#E53935"/>
+  <rect x="830" y="270" width="80" height="35" fill="#4CAF50"/>
+  <text x="870" y="295" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">会打包</text>
+  
+  <!-- 2. provided -->
+  <rect x="140" y="420" width="800" height="150" fill="#F9F9F9" stroke="#EEEEEE" stroke-width="2"/>
+  <text x="180" y="480" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="bold" fill="#E53935">2. provided</text>
+  <text x="180" y="530" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#333333">编译 &amp; 测试可用，运行时由容器（如 Tomcat）提供</text>
+  <circle cx="160" cy="470" r="10" fill="#E53935"/>
+  <rect x="830" y="440" width="80" height="35" fill="#F44336"/>
+  <text x="870" y="465" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">不打包</text>
+  
+  <!-- 3. runtime -->
+  <rect x="140" y="590" width="800" height="150" fill="#F9F9F9" stroke="#EEEEEE" stroke-width="2"/>
+  <text x="180" y="650" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="bold" fill="#E53935">3. runtime</text>
+  <text x="180" y="700" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#333333">运行 &amp; 测试可用，编译时不可用（如 JDBC 驱动）</text>
+  <circle cx="160" cy="640" r="10" fill="#E53935"/>
+  <rect x="830" y="610" width="80" height="35" fill="#4CAF50"/>
+  <text x="870" y="635" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">会打包</text>
+  
+  <!-- 4. test -->
+  <rect x="140" y="760" width="800" height="150" fill="#F9F9F9" stroke="#EEEEEE" stroke-width="2"/>
+  <text x="180" y="820" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="bold" fill="#E53935">4. test</text>
+  <text x="180" y="870" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#333333">仅测试阶段可用（如 JUnit、Mockito）</text>
+  <circle cx="160" cy="810" r="10" fill="#E53935"/>
+  <rect x="830" y="780" width="80" height="35" fill="#F44336"/>
+  <text x="870" y="805" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">不打包</text>
+  
+  <!-- 5. system -->
+  <rect x="140" y="930" width="800" height="150" fill="#F9F9F9" stroke="#EEEEEE" stroke-width="2"/>
+  <text x="180" y="990" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="bold" fill="#E53935">5. system</text>
+  <text x="180" y="1040" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#333333">需手动指定本地 jar 路径，类似 provided 但不推荐</text>
+  <circle cx="160" cy="980" r="10" fill="#E53935"/>
+  <rect x="830" y="950" width="80" height="35" fill="#F44336"/>
+  <text x="870" y="975" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">不打包</text>
+  
+  <!-- 6. import -->
+  <rect x="140" y="1100" width="800" height="150" fill="#F9F9F9" stroke="#EEEEEE" stroke-width="2"/>
+  <text x="180" y="1160" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="bold" fill="#E53935">6. import</text>
+  <text x="180" y="1210" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#333333">仅用于 dependencyManagement 继承 BOM 依赖</text>
+  <circle cx="160" cy="1150" r="10" fill="#E53935"/>
+  <text x="780" y="1160" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#666666" font-style="italic">(不适用于常规依赖)</text>
+  
+  <!-- Updated Footer -->
+  <text x="540" y="1300" font-family="Arial, Helvetica, sans-serif" font-size="28" text-anchor="middle" fill="#E53935" font-weight="bold">猫大刚 * 每天一个知识卡片</text>
+</svg>
