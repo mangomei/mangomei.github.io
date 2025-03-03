@@ -194,6 +194,7 @@
                                 '问小白@https://www.wenxiaobai.com/chat/200006',
                                 'Kimi@https://kimi.moonshot.cn/',
                                 '智普清言@https://chatglm.cn/main/alltoolsdetail',
+                                'Grok@https://grok.com/',
                                 'groq@https://groq.com/',
                                 'cloudflare ai playground@https://playground.ai.cloudflare.com/',
                                 '林哥的大模型野榜@https://lyihub.com/chat',
