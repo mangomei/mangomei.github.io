@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Python语言组成架构图</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        h1 {
+            color: #3776ab;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            border-bottom: 1px solid #ddd;
+        }
+        .architecture {
+            display: flex;
+            flex-direction: column;
+        }
+        .layer {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 15px;
+        }
+        .layer-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #3776ab;
+            padding: 10px 15px;
+            background-color: #e9f2fa;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .layer-title:before {
+            content: "▶";
+            margin-right: 10px;
+            font-size: 14px;
+            transition: transform 0.3s;
+        }
+        .layer-title.active:before {
+            content: "▼";
+        }
+        .sections {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 0 10px;
+        }
+        .section {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .section:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        .section-header {
+            background-color: #3776ab;
+            color: white;
+            padding: 12px 15px;
+            font-weight: bold;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .section-header:after {
+            content: "▶";
+            font-size: 14px;
+        }
+        .section-header.active:after {
+            content: "▼";
+        }
+        .section-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .section-content-inner {
+            padding: 15px;
+        }
+        .component {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed #eee;
+        }
+        .component:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .component-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .component-title:before {
+            content: "•";
+            color: #3776ab;
+            margin-right: 8px;
+            font-size: 20px;
+        }
+        .component-desc {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+        }
+        .sub-components {
+            margin-left: 15px;
+        }
+        .sub-component {
+            font-size: 13px;
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+        }
+        .sub-component:before {
+            content: "◦";
+            color: #3776ab;
+            margin-right: 8px;
+        }
+        .highlight {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            border-left: 4px solid #3776ab;
+        }
+        .highlight-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .color-coding {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .color-item {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+        }
+        .color-box {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            margin-right: 8px;
+        }
+        .syntax-color { background-color: #3776ab; }
+        .stdlib-color { background-color: #2ecc71; }
+        .runtime-color { background-color: #e74c3c; }
+        .ecosystem-color { background-color: #f39c12; }
+        .tools-color { background-color: #9b59b6; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Python语言组成架构图</h1>
+        
+        <div class="architecture">
+            <!-- 语法层 -->
+            <div class="layer">
+                <div class="layer-title">1. Python语法层</div>
+                <div class="sections">
+                    <div class="section">
+                        <div class="section-header">基础语法</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">数据类型</div>
+                                    <div class="component-desc">内置基本数据类型</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">数值类型(int, float, complex)</div>
+                                        <div class="sub-component">序列类型(list, tuple, range)</div>
+                                        <div class="sub-component">文本类型(str)</div>
+                                        <div class="sub-component">映射类型(dict)</div>
+                                        <div class="sub-component">集合类型(set, frozenset)</div>
+                                        <div class="sub-component">布尔类型(bool)</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">控制结构</div>
+                                    <div class="component-desc">程序流程控制</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">条件语句(if/elif/else)</div>
+                                        <div class="sub-component">循环语句(for/while)</div>
+                                        <div class="sub-component">异常处理(try/except)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">函数与OOP</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">函数</div>
+                                    <div class="component-desc">代码组织和复用</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">函数定义(def)</div>
+                                        <div class="sub-component">参数传递(位置/关键字)</div>
+                                        <div class="sub-component">lambda表达式</div>
+                                        <div class="sub-component">装饰器</div>
+                                        <div class="sub-component">生成器(yield)</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">面向对象</div>
+                                    <div class="component-desc">OOP特性实现</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">类定义(class)</div>
+                                        <div class="sub-component">继承与多态</div>
+                                        <div class="sub-component">魔术方法(__init__等)</div>
+                                        <div class="sub-component">属性管理(@property)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">高级特性</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">迭代器与生成器</div>
+                                    <div class="component-desc">惰性计算支持</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">迭代协议(__iter__)</div>
+                                        <div class="sub-component">生成器表达式</div>
+                                        <div class="sub-component">协程(async/await)</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">元编程</div>
+                                    <div class="component-desc">运行时代码操作</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">装饰器</div>
+                                        <div class="sub-component">元类(metaclass)</div>
+                                        <div class="sub-component">描述符协议</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 标准库层 -->
+            <div class="layer">
+                <div class="layer-title">2. Python标准库</div>
+                <div class="sections">
+                    <div class="section">
+                        <div class="section-header">内置函数与模块</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">内置函数</div>
+                                    <div class="component-desc">无需导入直接使用</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">print(), len(), type()</div>
+                                        <div class="sub-component">range(), enumerate()</div>
+                                        <div class="sub-component">map(), filter(), zip()</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">常用内置模块</div>
+                                    <div class="component-desc">Python安装自带</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">sys - 系统相关</div>
+                                        <div class="sub-component">os - 操作系统接口</div>
+                                        <div class="sub-component">math - 数学运算</div>
+                                        <div class="sub-component">datetime - 日期时间</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">数据处理</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">文件与IO</div>
+                                    <div class="component-desc">数据输入输出</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">io - 核心IO工具</div>
+                                        <div class="sub-component">json - JSON编码解码</div>
+                                        <div class="sub-component">csv - CSV文件处理</div>
+                                        <div class="sub-component">pickle - 对象序列化</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">数据处理</div>
+                                    <div class="component-desc">数据转换与处理</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">collections - 容器数据类型</div>
+                                        <div class="sub-component">itertools - 迭代器工具</div>
+                                        <div class="sub-component">functools - 高阶函数</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">并发与网络</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">并发编程</div>
+                                    <div class="component-desc">多任务处理</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">threading - 线程</div>
+                                        <div class="sub-component">multiprocessing - 进程</div>
+                                        <div class="sub-component">asyncio - 异步IO</div>
+                                        <div class="sub-component">concurrent.futures</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">网络编程</div>
+                                    <div class="component-desc">网络通信支持</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">socket - 底层网络接口</div>
+                                        <div class="sub-component">http - HTTP协议</div>
+                                        <div class="sub-component">urllib - URL处理</div>
+                                        <div class="sub-component">email - 邮件处理</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 运行时层 -->
+            <div class="layer">
+                <div class="layer-title">3. Python运行时环境</div>
+                <div class="sections">
+                    <div class="section">
+                        <div class="section-header">解释器</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">CPython</div>
+                                    <div class="component-desc">官方参考实现</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">词法分析</div>
+                                        <div class="sub-component">语法分析</div>
+                                        <div class="sub-component">字节码编译</div>
+                                        <div class="sub-component">解释执行</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">其他实现</div>
+                                    <div class="component-desc">替代解释器</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">PyPy - JIT实现</div>
+                                        <div class="sub-component">Jython - JVM实现</div>
+                                        <div class="sub-component">IronPython - .NET实现</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">内存管理</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">垃圾回收</div>
+                                    <div class="component-desc">自动内存管理</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">引用计数</div>
+                                        <div class="sub-component">分代回收</div>
+                                        <div class="sub-component">循环垃圾收集器</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">内存模型</div>
+                                    <div class="component-desc">对象存储与访问</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">对象分配器(pymalloc)</div>
+                                        <div class="sub-component">全局解释器锁(GIL)</div>
+                                        <div class="sub-component">内存池机制</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">执行模型</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">字节码执行</div>
+                                    <div class="component-desc">代码执行过程</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">.pyc文件</div>
+                                        <div class="sub-component">字节码指令</div>
+                                        <div class="sub-component">栈帧管理</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">导入系统</div>
+                                    <div class="component-desc">模块加载机制</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">import语句</div>
+                                        <div class="sub-component">sys.path</div>
+                                        <div class="sub-component">__import__()</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 生态系统层 -->
+            <div class="layer">
+                <div class="layer-title">4. Python生态系统</div>
+                <div class="sections">
+                    <div class="section">
+                        <div class="section-header">包管理</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">包管理工具</div>
+                                    <div class="component-desc">第三方包管理</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">pip - 包安装</div>
+                                        <div class="sub-component">setuptools - 打包工具</div>
+                                        <div class="sub-component">wheel - 二进制分发</div>
+                                        <div class="sub-component">conda - 跨平台管理</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">虚拟环境</div>
+                                    <div class="component-desc">隔离开发环境</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">venv</div>
+                                        <div class="sub-component">virtualenv</div>
+                                        <div class="sub-component">pipenv</div>
+                                        <div class="sub-component">poetry</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">流行框架</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">Web开发</div>
+                                    <div class="component-desc">网站与API开发</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">Django - 全栈框架</div>
+                                        <div class="sub-component">Flask - 微框架</div>
+                                        <div class="sub-component">FastAPI - 现代API框架</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">数据分析</div>
+                                    <div class="component-desc">数据处理与分析</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">NumPy - 数值计算</div>
+                                        <div class="sub-component">pandas - 数据分析</div>
+                                        <div class="sub-component">Matplotlib - 可视化</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">其他领域</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">机器学习</div>
+                                    <div class="component-desc">AI与数据科学</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">scikit-learn - 机器学习</div>
+                                        <div class="sub-component">TensorFlow/PyTorch - 深度学习</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">自动化与运维</div>
+                                    <div class="component-desc">系统管理工具</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">Ansible - 自动化</div>
+                                        <div class="sub-component">Fabric - 部署工具</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 工具层 -->
+            <div class="layer">
+                <div class="layer-title">5. Python开发工具</div>
+                <div class="sections">
+                    <div class="section">
+                        <div class="section-header">开发环境</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">IDE</div>
+                                    <div class="component-desc">集成开发环境</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">PyCharm</div>
+                                        <div class="sub-component">VS Code</div>
+                                        <div class="sub-component">Jupyter Notebook</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">调试工具</div>
+                                    <div class="component-desc">代码调试与分析</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">pdb - Python调试器</div>
+                                        <div class="sub-component">ipdb - 增强版pdb</div>
+                                        <div class="sub-component">py-spy - 性能分析</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">测试工具</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">测试框架</div>
+                                    <div class="component-desc">代码测试支持</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">unittest - 标准库</div>
+                                        <div class="sub-component">pytest - 流行框架</div>
+                                        <div class="sub-component">doctest - 文档测试</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">质量工具</div>
+                                    <div class="component-desc">代码质量保证</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">flake8 - 代码规范</div>
+                                        <div class="sub-component">black - 代码格式化</div>
+                                        <div class="sub-component">mypy - 静态类型检查</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">文档工具</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">文档生成</div>
+                                    <div class="component-desc">项目文档支持</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">Sphinx - 文档生成器</div>
+                                        <div class="sub-component">pydoc - 标准库</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">文档格式</div>
+                                    <div class="component-desc">文档标记语言</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">docstring - 函数文档</div>
+                                        <div class="sub-component">reStructuredText</div>
+                                        <div class="sub-component">Markdown支持</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="highlight">
+            <div class="highlight-title">Python语言关键特性</div>
+            <div class="color-coding">
+                <div class="color-item"><span class="color-box syntax-color"></span>语法层 - 简洁优雅的语法</div>
+                <div class="color-item"><span class="color-box stdlib-color"></span>标准库 - 功能丰富的内置模块</div>
+                <div class="color-item"><span class="color-box runtime-color"></span>运行时 - 解释执行与内存管理</div>
+                <div class="color-item"><span class="color-box ecosystem-color"></span>生态系统 - 强大的第三方库</div>
+                <div class="color-item"><span class="color-box tools-color"></span>工具链 - 完善的开发工具</div>
+            </div>
+            <ul style="margin-top:15px;padding-left:20px;">
+                <li><strong>易读易写</strong>：简洁的语法结构，强调代码可读性</li>
+                <li><strong>动态类型</strong>：无需声明变量类型，运行时确定</li>
+                <li><strong>跨平台</strong>：一次编写，多平台运行</li>
+                <li><strong>多范式</strong>：支持面向对象、函数式、过程式编程</li>
+                <li><strong>丰富的标准库</strong>：开箱即用的强大功能</li>
+                <li><strong>庞大的生态系统</strong>：PyPI上数十万个第三方包</li>
+                <li><strong>胶水语言</strong>：易于与其他语言集成</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 交互逻辑
+        document.querySelectorAll('.section-header').forEach(header => {
+            header.addEventListener('click', () => {
+                header.classList.toggle('active');
+                const content = header.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        });
+
+        document.querySelectorAll('.layer-title').forEach(title => {
+            title.addEventListener('click', () => {
+                title.classList.toggle('active');
+                const sections = title.parentElement.querySelector('.sections');
+                sections.style.display = sections.style.display === 'none' ? 'flex' : 'none';
+            });
+            
+            // 默认展开所有层
+            title.classList.add('active');
+            const sections = title.parentElement.querySelector('.sections');
+            sections.style.display = 'flex';
+        });
+        
+        // 默认展开所有分区
+        document.querySelectorAll('.section-header').forEach(header => {
+            header.classList.add('active');
+            const content = header.nextElementSibling;
+            content.style.maxHeight = content.scrollHeight + 'px';
+        });
+    </script>
+</body>
+</html>

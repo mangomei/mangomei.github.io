@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的书签</title>
+    <style>
+        :root {
+            --primary-color: #4a6bff;
+            --secondary-color: #6c5ce7;
+            --dark-color: #2d3436;
+            --light-color: #f5f6fa;
+            --accent-color: #00cec9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--dark-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .sidebar {
+            width: 200px;
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            height: fit-content;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar a {
+            display: block;
+            padding: 8px 10px;
+            color: var(--dark-color);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        
+        .sidebar a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-right: 240px;
+        }
+        
+        .category {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .category h2 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .bookmarks {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 12px;
+        }
+        
+        .bookmark {
+            display: block;
+            padding: 12px 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: var(--dark-color);
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .bookmark:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .bookmark-title {
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column-reverse;
+            }
+            
+            .sidebar {
+                position: static;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .main-content {
+                margin-right: 0;
+            }
+            
+            .bookmarks {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <main class="main-content" id="bookmarks-container">
+            <!-- 书签内容将通过JavaScript动态生成 -->
+        </main>
+        
+        <aside class="sidebar">
+            <h2>快速导航</h2>
+            <ul id="nav-links">
+                <!-- 导航链接将通过JavaScript动态生成 -->
+            </ul>
+        </aside>
+    </div>
+
+    <script>
+        // 书签数据数组 - 可以轻松添加或修改
+        const bookmarksData = [
+            {
+                category: "AI生成的架构图",
+                items: [
+                    { title: "Java语言分层分区架构图", url: "https://mg.meiflower.top/java-art.html" },
+                    { title: "Python语言组成架构图", url: "https://mg.meiflower.top/python-art.html" },
+                ]
+            }
+        ];
+
+        // 生成书签内容
+        function renderBookmarks() {
+            const bookmarksContainer = document.getElementById('bookmarks-container');
+            const navLinksContainer = document.getElementById('nav-links');
+            
+            // 清空容器
+            bookmarksContainer.innerHTML = '';
+            navLinksContainer.innerHTML = '';
+            
+            // 为每个类别创建书签部分
+            bookmarksData.forEach(category => {
+                // 创建类别部分
+                const categoryId = category.category.replace(/\s+/g, '-').toLowerCase();
+                const categoryElement = document.createElement('div');
+                categoryElement.className = 'category';
+                categoryElement.id = categoryId;
+                
+                // 添加类别标题
+                const categoryTitle = document.createElement('h2');
+                categoryTitle.textContent = category.category;
+                categoryElement.appendChild(categoryTitle);
+                
+                // 添加书签列表
+                const bookmarksList = document.createElement('div');
+                bookmarksList.className = 'bookmarks';
+                
+                category.items.forEach(bookmark => {
+                    const bookmarkElement = document.createElement('a');
+                    bookmarkElement.className = 'bookmark';
+                    bookmarkElement.href = bookmark.url;
+                    bookmarkElement.target = '_blank';
+                    
+                    const titleElement = document.createElement('div');
+                    titleElement.className = 'bookmark-title';
+                    titleElement.textContent = bookmark.title;
+                    
+                    bookmarkElement.appendChild(titleElement);
+                    bookmarksList.appendChild(bookmarkElement);
+                });
+                
+                categoryElement.appendChild(bookmarksList);
+                bookmarksContainer.appendChild(categoryElement);
+                
+                // 添加导航链接
+                const navLink = document.createElement('li');
+                navLink.innerHTML = `<a href="#${categoryId}">${category.category}</a>`;
+                navLinksContainer.appendChild(navLink);
+            });
+        }
+
+        // 页面加载时渲染书签
+        document.addEventListener('DOMContentLoaded', renderBookmarks);
+    </script>
+</body>
+</html>

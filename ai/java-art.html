@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Java语言分层分区架构图</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            border-bottom: 1px solid #ddd;
+        }
+        .architecture {
+            display: flex;
+            flex-direction: column;
+        }
+        .layer {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 15px;
+        }
+        .layer-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            padding: 10px 15px;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .layer-title:before {
+            content: "▶";
+            margin-right: 10px;
+            font-size: 14px;
+            transition: transform 0.3s;
+        }
+        .layer-title.active:before {
+            transform: rotate(90deg);
+        }
+        .sections {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 0 10px;
+        }
+        .section {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .section:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        .section-header {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 15px;
+            font-weight: bold;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .section-header:after {
+            content: "+";
+            font-size: 18px;
+        }
+        .section-header.active:after {
+            content: "-";
+        }
+        .section-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .section-content-inner {
+            padding: 15px;
+        }
+        .component {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed #eee;
+        }
+        .component:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .component-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .component-title:before {
+            content: "•";
+            color: #3498db;
+            margin-right: 8px;
+            font-size: 20px;
+        }
+        .component-desc {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+        }
+        .sub-components {
+            margin-left: 15px;
+        }
+        .sub-component {
+            font-size: 13px;
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+        }
+        .sub-component:before {
+            content: "◦";
+            color: #3498db;
+            margin-right: 8px;
+        }
+        .highlight {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            border-left: 4px solid #3498db;
+        }
+        .highlight-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .color-coding {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .color-item {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+        }
+        .color-box {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            margin-right: 8px;
+        }
+        .syntax-color { background-color: #3498db; }
+        .core-color { background-color: #2ecc71; }
+        .api-color { background-color: #9b59b6; }
+        .jvm-color { background-color: #e74c3c; }
+        .tools-color { background-color: #f39c12; }
+        .layer-title:before {
+            content: "▶";
+            margin-right: 10px;
+            font-size: 14px;
+            transition: transform 0.3s;
+        }
+        .layer-title.active:before {
+            content: "▼";
+        }
+        
+        .section-header:after {
+            content: "▶";
+            font-size: 14px;
+            transition: transform 0.3s;
+        }
+        .section-header.active:after {
+            content: "▼";
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Java语言分层分区架构图</h1>
+        
+        <div class="architecture">
+            <!-- 语法层 -->
+            <div class="layer">
+                <div class="layer-title">1. Java语法层</div>
+                <div class="sections">
+                    <div class="section">
+                        <div class="section-header">基础语法</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">数据类型</div>
+                                    <div class="component-desc">原始类型和引用类型的定义与使用</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">8种基本数据类型</div>
+                                        <div class="sub-component">数组、类、接口等引用类型</div>
+                                        <div class="sub-component">自动装箱/拆箱</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">运算符</div>
+                                    <div class="component-desc">用于操作变量的符号</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">算术运算符</div>
+                                        <div class="sub-component">关系运算符</div>
+                                        <div class="sub-component">逻辑运算符</div>
+                                        <div class="sub-component">位运算符</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">控制结构</div>
+                                    <div class="component-desc">程序流程控制</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">条件语句(if/switch)</div>
+                                        <div class="sub-component">循环语句(for/while)</div>
+                                        <div class="sub-component">跳转语句(break/continue)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">面向对象</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">类与对象</div>
+                                    <div class="component-desc">面向对象的基本单元</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">类定义(class)</div>
+                                        <div class="sub-component">对象实例化(new)</div>
+                                        <div class="sub-component">构造方法</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">继承与多态</div>
+                                    <div class="component-desc">OOP核心特性</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">extends关键字</div>
+                                        <div class="sub-component">方法重写(Override)</div>
+                                        <div class="sub-component">动态绑定</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">接口与抽象</div>
+                                    <div class="component-desc">高级抽象机制</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">interface定义</div>
+                                        <div class="sub-component">抽象类(abstract)</div>
+                                        <div class="sub-component">默认方法(Java 8+)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">高级特性</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">泛型</div>
+                                    <div class="component-desc">类型参数化</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">泛型类/方法</div>
+                                        <div class="sub-component">类型通配符</div>
+                                        <div class="sub-component">类型擦除</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">Lambda表达式</div>
+                                    <div class="component-desc">函数式编程支持</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">函数式接口</div>
+                                        <div class="sub-component">方法引用</div>
+                                        <div class="sub-component">Stream API</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">注解</div>
+                                    <div class="component-desc">元数据支持</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">内置注解</div>
+                                        <div class="sub-component">自定义注解</div>
+                                        <div class="sub-component">注解处理器</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 核心类库层 -->
+            <div class="layer">
+                <div class="layer-title">2. 核心类库层</div>
+                <div class="sections">
+                    <div class="section">
+                        <div class="section-header">基础类库</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">java.lang包</div>
+                                    <div class="component-desc">自动导入的核心类</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">Object类</div>
+                                        <div class="sub-component">String/StringBuilder</div>
+                                        <div class="sub-component">包装类</div>
+                                        <div class="sub-component">System类</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">java.util包</div>
+                                    <div class="component-desc">实用工具类</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">日期时间类</div>
+                                        <div class="sub-component">Scanner/Random</div>
+                                        <div class="sub-component">正则表达式</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">集合框架</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">Collection接口</div>
+                                    <div class="component-desc">单值集合根接口</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">List(ArrayList/LinkedList)</div>
+                                        <div class="sub-component">Set(HashSet/TreeSet)</div>
+                                        <div class="sub-component">Queue/PriorityQueue</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">Map接口</div>
+                                    <div class="component-desc">键值对集合</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">HashMap</div>
+                                        <div class="sub-component">TreeMap</div>
+                                        <div class="sub-component">LinkedHashMap</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">I/O与NIO</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">传统I/O</div>
+                                    <div class="component-desc">基于流的I/O操作</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">字节流(InputStream/OutputStream)</div>
+                                        <div class="sub-component">字符流(Reader/Writer)</div>
+                                        <div class="sub-component">文件操作</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">NIO</div>
+                                    <div class="component-desc">非阻塞I/O</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">Channel/Buffer</div>
+                                        <div class="sub-component">Selector</div>
+                                        <div class="sub-component">文件锁</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 平台API层 -->
+            <div class="layer">
+                <div class="layer-title">3. 平台API层</div>
+                <div class="sections">
+                    <div class="section">
+                        <div class="section-header">Java EE/Jakarta EE</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">Web开发</div>
+                                    <div class="component-desc">企业级Web应用支持</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">Servlet/JSP</div>
+                                        <div class="sub-component">JSF</div>
+                                        <div class="sub-component">WebSocket</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">企业服务</div>
+                                    <div class="component-desc">分布式计算支持</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">EJB</div>
+                                        <div class="sub-component">JMS</div>
+                                        <div class="sub-component">JTA</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">数据库连接</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">JDBC</div>
+                                    <div class="component-desc">数据库访问API</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">DriverManager</div>
+                                        <div class="sub-component">Connection/Statement</div>
+                                        <div class="sub-component">事务管理</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">ORM框架</div>
+                                    <div class="component-desc">对象关系映射</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">JPA规范</div>
+                                        <div class="sub-component">Hibernate</div>
+                                        <div class="sub-component">MyBatis</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">网络编程</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">基础网络</div>
+                                    <div class="component-desc">TCP/UDP通信</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">Socket编程</div>
+                                        <div class="sub-component">URL/HttpURLConnection</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">高级网络</div>
+                                    <div class="component-desc">现代网络协议</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">HTTP Client(Java 11+)</div>
+                                        <div class="sub-component">WebSocket API</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- JVM层 -->
+            <div class="layer">
+                <div class="layer-title">4. JVM层</div>
+                <div class="sections">
+                    <div class="section">
+                        <div class="section-header">类加载系统</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">类加载器</div>
+                                    <div class="component-desc">动态加载类文件</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">Bootstrap ClassLoader</div>
+                                        <div class="sub-component">Extension ClassLoader</div>
+                                        <div class="sub-component">Application ClassLoader</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">双亲委派模型</div>
+                                    <div class="component-desc">类加载机制</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">加载过程</div>
+                                        <div class="sub-component">安全性保障</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">运行时数据区</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">内存结构</div>
+                                    <div class="component-desc">JVM内存划分</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">方法区(Metaspace)</div>
+                                        <div class="sub-component">堆(Heap)</div>
+                                        <div class="sub-component">虚拟机栈</div>
+                                        <div class="sub-component">本地方法栈</div>
+                                        <div class="sub-component">程序计数器</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">内存管理</div>
+                                    <div class="component-desc">内存分配与回收</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">新生代/老年代</div>
+                                        <div class="sub-component">垃圾回收算法</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">执行引擎</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">字节码执行</div>
+                                    <div class="component-desc">代码执行机制</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">解释执行</div>
+                                        <div class="sub-component">JIT编译</div>
+                                        <div class="sub-component">AOT编译</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">性能优化</div>
+                                    <div class="component-desc">执行效率提升</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">热点代码检测</div>
+                                        <div class="sub-component">逃逸分析</div>
+                                        <div class="sub-component">内联优化</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 工具层 -->
+            <div class="layer">
+                <div class="layer-title">5. 工具层</div>
+                <div class="sections">
+                    <div class="section">
+                        <div class="section-header">JDK工具</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">开发工具</div>
+                                    <div class="component-desc">基础开发支持</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">javac编译器</div>
+                                        <div class="sub-component">java启动器</div>
+                                        <div class="sub-component">javap反编译器</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">诊断工具</div>
+                                    <div class="component-desc">问题排查与分析</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">jps进程查看</div>
+                                        <div class="sub-component">jstat监控统计</div>
+                                        <div class="sub-component">jstack线程分析</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">构建工具</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">Maven</div>
+                                    <div class="component-desc">项目构建与依赖管理</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">POM文件</div>
+                                        <div class="sub-component">依赖管理</div>
+                                        <div class="sub-component">生命周期</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">Gradle</div>
+                                    <div class="component-desc">灵活构建工具</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">Groovy DSL</div>
+                                        <div class="sub-component">增量构建</div>
+                                        <div class="sub-component">多项目支持</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">IDE</div>
+                        <div class="section-content">
+                            <div class="section-content-inner">
+                                <div class="component">
+                                    <div class="component-title">IntelliJ IDEA</div>
+                                    <div class="component-desc">智能Java IDE</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">代码智能提示</div>
+                                        <div class="sub-component">重构工具</div>
+                                        <div class="sub-component">调试支持</div>
+                                    </div>
+                                </div>
+                                <div class="component">
+                                    <div class="component-title">Eclipse</div>
+                                    <div class="component-desc">开源Java IDE</div>
+                                    <div class="sub-components">
+                                        <div class="sub-component">插件体系</div>
+                                        <div class="sub-component">JDT核心</div>
+                                        <div class="sub-component">多语言支持</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="highlight">
+            <div class="highlight-title">Java平台关键特性</div>
+            <div class="color-coding">
+                <div class="color-item"><span class="color-box syntax-color"></span>语法层 - 基础语言规范</div>
+                <div class="color-item"><span class="color-box core-color"></span>核心类库 - Java SE API</div>
+                <div class="color-item"><span class="color-box api-color"></span>平台API - 企业级扩展</div>
+                <div class="color-item"><span class="color-box jvm-color"></span>JVM层 - 运行时环境</div>
+                <div class="color-item"><span class="color-box tools-color"></span>工具层 - 开发支持</div>
+            </div>
+            <ul style="margin-top:15px;padding-left:20px;">
+                <li><strong>跨平台性</strong>：Write Once, Run Anywhere (WORA) - 基于JVM实现</li>
+                <li><strong>面向对象</strong>：封装、继承、多态 - 语言核心设计理念</li>
+                <li><strong>自动内存管理</strong>：垃圾回收机制 - 减少内存泄漏风险</li>
+                <li><strong>丰富的类库</strong>：覆盖各种开发需求 - 从基础到企业级应用</li>
+                <li><strong>多线程支持</strong>：内置并发编程能力 - 语言级线程支持</li>
+                <li><strong>安全性</strong>：字节码验证、安全管理器 - 沙箱安全模型</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 修正后的交互逻辑
+        document.querySelectorAll('.section-header').forEach(header => {
+            header.addEventListener('click', () => {
+                header.classList.toggle('active');
+                const content = header.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        });
+
+        document.querySelectorAll('.layer-title').forEach(title => {
+            title.addEventListener('click', () => {
+                title.classList.toggle('active');
+                const sections = title.parentElement.querySelector('.sections');
+                sections.style.display = sections.style.display === 'none' ? 'flex' : 'none';
+            });
+            
+            // 默认展开所有层
+            title.classList.add('active');
+            const sections = title.parentElement.querySelector('.sections');
+            sections.style.display = 'flex';
+        });
+        // 默认展开所有分区
+        document.querySelectorAll('.section-header').forEach(header => {
+            header.classList.add('active');
+            const content = header.nextElementSibling;
+            content.style.maxHeight = content.scrollHeight + 'px';
+        });
+    </script>
+</body>
+</html>

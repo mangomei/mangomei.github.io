@@ -2,6 +2,7 @@
 - [待办](todo/index.md)
 - [书签](bookmark/README.md)
 - [阅读](read/README.md)
+- [新导航](nav.html)
 - 经验
     - [新电脑复活](exp/for-new-system.md)
 - 硬件
