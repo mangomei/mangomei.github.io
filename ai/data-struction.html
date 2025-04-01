@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常用数据结构总结</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #e74c3c;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --text: #34495e;
+            --muted: #7f8c8d;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            color: var(--text);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .data-structure-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .ds-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .ds-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .ds-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            position: relative;
+        }
+        
+        .ds-name {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .ds-type {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            display: inline-block;
+            padding: 3px 10px;
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 20px;
+        }
+        
+        .ds-body {
+            padding: 20px;
+        }
+        
+        .ds-property {
+            margin-bottom: 15px;
+        }
+        
+        .property-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .property-title::before {
+            content: "•";
+            color: var(--accent);
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .time-complexity {
+            background-color: rgba(52, 152, 219, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .complexity-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        
+        .complexity-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .operation {
+            color: var(--muted);
+        }
+        
+        .example {
+            background-color: rgba(46, 204, 113, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .example-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--secondary);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .data-structure-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .ds-card {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        /* 为每张卡片设置不同的延迟 */
+        .ds-card:nth-child(1) { animation-delay: 0.1s; }
+        .ds-card:nth-child(2) { animation-delay: 0.2s; }
+        .ds-card:nth-child(3) { animation-delay: 0.3s; }
+        .ds-card:nth-child(4) { animation-delay: 0.4s; }
+        .ds-card:nth-child(5) { animation-delay: 0.5s; }
+        .ds-card:nth-child(6) { animation-delay: 0.6s; }
+        .ds-card:nth-child(7) { animation-delay: 0.7s; }
+        .ds-card:nth-child(8) { animation-delay: 0.8s; }
+        .ds-card:nth-child(9) { animation-delay: 0.9s; }
+        .ds-card:nth-child(10) { animation-delay: 1.0s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>常用数据结构总结</h1>
+            <p class="subtitle">计算机科学的基础构建模块</p>
+        </header>
+        
+        <div class="data-structure-grid">
+            <!-- 数组 -->
+            <div class="ds-card">
+                <div class="ds-header">
+                    <h2 class="ds-name">数组</h2>
+                    <span class="ds-type">线性结构</span>
+                </div>
+                <div class="ds-body">
+                    <div class="ds-property">
+                        <div class="property-title">描述</div>
+                        <p>连续内存空间存储相同类型元素的集合，通过索引访问元素。</p>
+                    </div>
+                    
+                    <div class="time-complexity">
+                        <div class="complexity-title">时间复杂度</div>
+                        <div class="complexity-item">
+                            <span class="operation">访问</span>
+                            <span>O(1)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">搜索</span>
+                            <span>O(n)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">插入</span>
+                            <span>O(n)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">删除</span>
+                            <span>O(n)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">应用场景</div>
+                        <p>基础数据存储、矩阵表示、缓存系统、查找表等。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 链表 -->
+            <div class="ds-card">
+                <div class="ds-header">
+                    <h2 class="ds-name">链表</h2>
+                    <span class="ds-type">线性结构</span>
+                </div>
+                <div class="ds-body">
+                    <div class="ds-property">
+                        <div class="property-title">描述</div>
+                        <p>节点通过指针连接的非连续存储结构，包括单链表、双链表和循环链表。</p>
+                    </div>
+                    
+                    <div class="time-complexity">
+                        <div class="complexity-title">时间复杂度</div>
+                        <div class="complexity-item">
+                            <span class="operation">访问</span>
+                            <span>O(n)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">搜索</span>
+                            <span>O(n)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">插入</span>
+                            <span>O(1)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">删除</span>
+                            <span>O(1)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">应用场景</div>
+                        <p>实现栈和队列、内存管理、哈希表冲突解决、浏览器历史记录等。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 栈 -->
+            <div class="ds-card">
+                <div class="ds-header">
+                    <h2 class="ds-name">栈</h2>
+                    <span class="ds-type">线性结构</span>
+                </div>
+                <div class="ds-body">
+                    <div class="ds-property">
+                        <div class="property-title">描述</div>
+                        <p>后进先出(LIFO)的数据结构，只允许在栈顶进行插入和删除操作。</p>
+                    </div>
+                    
+                    <div class="time-complexity">
+                        <div class="complexity-title">时间复杂度</div>
+                        <div class="complexity-item">
+                            <span class="operation">压栈(push)</span>
+                            <span>O(1)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">弹栈(pop)</span>
+                            <span>O(1)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">查看栈顶(peek)</span>
+                            <span>O(1)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">搜索</span>
+                            <span>O(n)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">应用场景</div>
+                        <p>函数调用栈、表达式求值、括号匹配、浏览器后退功能等。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 队列 -->
+            <div class="ds-card">
+                <div class="ds-header">
+                    <h2 class="ds-name">队列</h2>
+                    <span class="ds-type">线性结构</span>
+                </div>
+                <div class="ds-body">
+                    <div class="ds-property">
+                        <div class="property-title">描述</div>
+                        <p>先进先出(FIFO)的数据结构，包括普通队列、双端队列和优先队列等变种。</p>
+                    </div>
+                    
+                    <div class="time-complexity">
+                        <div class="complexity-title">时间复杂度</div>
+                        <div class="complexity-item">
+                            <span class="operation">入队(enqueue)</span>
+                            <span>O(1)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">出队(dequeue)</span>
+                            <span>O(1)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">查看队首(front)</span>
+                            <span>O(1)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">搜索</span>
+                            <span>O(n)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">应用场景</div>
+                        <p>BFS算法、任务调度、消息队列、打印机任务管理等。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 哈希表 -->
+            <div class="ds-card">
+                <div class="ds-header">
+                    <h2 class="ds-name">哈希表</h2>
+                    <span class="ds-type">散列结构</span>
+                </div>
+                <div class="ds-body">
+                    <div class="ds-property">
+                        <div class="property-title">描述</div>
+                        <p>通过哈希函数将键映射到存储位置的键值对集合，提供高效的数据访问。</p>
+                    </div>
+                    
+                    <div class="time-complexity">
+                        <div class="complexity-title">平均时间复杂度</div>
+                        <div class="complexity-item">
+                            <span class="operation">插入</span>
+                            <span>O(1)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">查找</span>
+                            <span>O(1)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">删除</span>
+                            <span>O(1)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">最坏情况</span>
+                            <span>O(n)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">应用场景</div>
+                        <p>字典实现、数据库索引、缓存系统、对象属性存储等。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 二叉树 -->
+            <div class="ds-card">
+                <div class="ds-header">
+                    <h2 class="ds-name">二叉树</h2>
+                    <span class="ds-type">树形结构</span>
+                </div>
+                <div class="ds-body">
+                    <div class="ds-property">
+                        <div class="property-title">描述</div>
+                        <p>每个节点最多有两个子节点的树结构，包括二叉搜索树、平衡二叉树等变种。</p>
+                    </div>
+                    
+                    <div class="time-complexity">
+                        <div class="complexity-title">时间复杂度(平衡时)</div>
+                        <div class="complexity-item">
+                            <span class="operation">访问</span>
+                            <span>O(log n)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">搜索</span>
+                            <span>O(log n)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">插入</span>
+                            <span>O(log n)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">删除</span>
+                            <span>O(log n)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">应用场景</div>
+                        <p>文件系统、数据库索引、表达式树、决策树等。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 堆 -->
+            <div class="ds-card">
+                <div class="ds-header">
+                    <h2 class="ds-name">堆</h2>
+                    <span class="ds-type">树形结构</span>
+                </div>
+                <div class="ds-body">
+                    <div class="ds-property">
+                        <div class="property-title">描述</div>
+                        <p>完全二叉树，满足堆性质(最大堆或最小堆)，常用于实现优先队列。</p>
+                    </div>
+                    
+                    <div class="time-complexity">
+                        <div class="complexity-title">时间复杂度</div>
+                        <div class="complexity-item">
+                            <span class="operation">访问最大/最小</span>
+                            <span>O(1)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">插入</span>
+                            <span>O(log n)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">删除最大/最小</span>
+                            <span>O(log n)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">构建堆</span>
+                            <span>O(n)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">应用场景</div>
+                        <p>堆排序、优先队列、Dijkstra算法、哈夫曼编码等。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 图 -->
+            <div class="ds-card">
+                <div class="ds-header">
+                    <h2 class="ds-name">图</h2>
+                    <span class="ds-type">非线性结构</span>
+                </div>
+                <div class="ds-body">
+                    <div class="ds-property">
+                        <div class="property-title">描述</div>
+                        <p>由顶点和边组成的集合，可以是有向或无向的，加权或未加权的。</p>
+                    </div>
+                    
+                    <div class="time-complexity">
+                        <div class="complexity-title">时间复杂度(邻接表表示)</div>
+                        <div class="complexity-item">
+                            <span class="operation">存储空间</span>
+                            <span>O(V + E)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">添加顶点</span>
+                            <span>O(1)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">添加边</span>
+                            <span>O(1)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">删除顶点</span>
+                            <span>O(E)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">删除边</span>
+                            <span>O(1)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">应用场景</div>
+                        <p>社交网络、路由算法、推荐系统、依赖关系分析等。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 跳表 -->
+            <div class="ds-card">
+                <div class="ds-header">
+                    <h2 class="ds-name">跳表</h2>
+                    <span class="ds-type">概率数据结构</span>
+                </div>
+                <div class="ds-body">
+                    <div class="ds-property">
+                        <div class="property-title">描述</div>
+                        <p>多层链表结构，通过随机化方式构建索引，提供类似平衡树的性能。</p>
+                    </div>
+                    
+                    <div class="time-complexity">
+                        <div class="complexity-title">时间复杂度</div>
+                        <div class="complexity-item">
+                            <span class="operation">搜索</span>
+                            <span>O(log n)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">插入</span>
+                            <span>O(log n)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">删除</span>
+                            <span>O(log n)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">应用场景</div>
+                        <p>Redis有序集合、LevelDB等数据库索引、替代平衡树的场景。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trie树 -->
+            <div class="ds-card">
+                <div class="ds-header">
+                    <h2 class="ds-name">Trie树</h2>
+                    <span class="ds-type">树形结构</span>
+                </div>
+                <div class="ds-body">
+                    <div class="ds-property">
+                        <div class="property-title">描述</div>
+                        <p>前缀树或字典树，用于高效存储和检索字符串集合，共享公共前缀。</p>
+                    </div>
+                    
+                    <div class="time-complexity">
+                        <div class="complexity-title">时间复杂度</div>
+                        <div class="complexity-item">
+                            <span class="operation">插入</span>
+                            <span>O(L)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">搜索</span>
+                            <span>O(L)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">前缀搜索</span>
+                            <span>O(L)</span>
+                        </div>
+                        <div class="complexity-item">
+                            <span class="operation">空间复杂度</span>
+                            <span>O(N*L)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">应用场景</div>
+                        <p>自动补全、拼写检查、IP路由、单词游戏等字符串处理场景。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>数据结构是计算机存储、组织数据的方式，选择合适的数据结构可以显著提高算法效率。</p>
+            <p>© 2023 数据结构总结 | 计算机科学基础</p>
+        </footer>
+    </div>
+</body>
+</html>
