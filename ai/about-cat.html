@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汽车品牌与车型概览</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #1a252f;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-weight: 300;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        
+        .filter-bar {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            background-color: white;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            height: 180px;
+            background-color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .car-logo {
+            max-height: 80px;
+            max-width: 180px;
+            object-fit: contain;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
+        }
+        
+        .car-type {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .electric {
+            background-color: #27ae60;
+            color: white;
+        }
+        
+        .gasoline {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .hybrid {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .car-brand {
+            font-size: 1.5rem;
+            margin: 0 0 5px 0;
+            color: var(--primary);
+        }
+        
+        .car-model {
+            font-size: 1.1rem;
+            margin: 0 0 15px 0;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        .price-range {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .price-tag {
+            font-weight: bold;
+            color: var(--accent);
+            margin-right: 5px;
+        }
+        
+        .car-positioning {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            color: #7f8c8d;
+        }
+        
+        .features-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .features-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .features-list li {
+            padding: 5px 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .features-list li:before {
+            content: "•";
+            color: var(--secondary);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            background-color: var(--dark);
+            color: white;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>汽车品牌与车型概览</h1>
+        <p class="subtitle">探索2025年主流汽车品牌与车型</p>
+    </header>
+    
+    <div class="container">
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <button class="filter-btn" data-filter="electric">纯电动</button>
+            <button class="filter-btn" data-filter="gasoline">燃油车</button>
+            <button class="filter-btn" data-filter="hybrid">混合动力</button>
+        </div>
+        
+        <div class="grid">
+            <!-- 特斯拉 -->
+            <div class="card" data-type="electric">
+                <div class="card-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg" alt="Tesla" class="car-logo">
+                    <span class="car-type electric">纯电动</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="car-brand">特斯拉</h3>
+                    <p class="car-model">Model 3 / Model Y / Model S / Model X</p>
+                    <div class="price-range">
+                        <span class="price-tag">¥229,900 - ¥1,079,900</span>
+                    </div>
+                    <p class="car-positioning">高端电动汽车品牌，科技领先</p>
+                    <div class="features-title">主要特点</div>
+                    <ul class="features-list">
+                        <li>行业领先的自动驾驶技术</li>
+                        <li>超长续航里程(最高700km+)</li>
+                        <li>极简内饰设计</li>
+                        <li>超级充电网络</li>
+                        <li>OTA远程升级</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 比亚迪 -->
+            <div class="card" data-type="electric hybrid">
+                <div class="card-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/BYD_Company_Limited_Logo.svg/1200px-BYD_Company_Limited_Logo.svg.png" alt="BYD" class="car-logo">
+                    <span class="car-type hybrid">电动/混动</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="car-brand">比亚迪</h3>
+                    <p class="car-model">汉 / 唐 / 秦 / 宋 / 海豹 / 海豚</p>
+                    <div class="price-range">
+                        <span class="price-tag">¥99,800 - ¥429,800</span>
+                    </div>
+                    <p class="car-positioning">中国新能源汽车领导者</p>
+                    <div class="features-title">主要特点</div>
+                    <ul class="features-list">
+                        <li>刀片电池技术</li>
+                        <li>DM-i超级混动系统</li>
+                        <li>e平台3.0架构</li>
+                        <li>DiPilot智能驾驶辅助</li>
+                        <li>垂直整合产业链</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 蔚来 -->
+            <div class="card" data-type="electric">
+                <div class="card-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/NIO_logo.svg/1200px-NIO_logo.svg.png" alt="NIO" class="car-logo">
+                    <span class="car-type electric">纯电动</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="car-brand">蔚来</h3>
+                    <p class="car-model">ET7 / ET5 / ES8 / ES7 / ES6 / EC6</p>
+                    <div class="price-range">
+                        <span class="price-tag">¥298,000 - ¥648,000</span>
+                    </div>
+                    <p class="car-positioning">高端智能电动汽车品牌</p>
+                    <div class="features-title">主要特点</div>
+                    <ul class="features-list">
+                        <li>换电技术(3分钟完成)</li>
+                        <li>NAD自动驾驶系统</li>
+                        <li>用户社区运营</li>
+                        <li>BaaS电池租用服务</li>
+                        <li>NOMI车载人工智能</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 理想 -->
+            <div class="card" data-type="hybrid">
+                <div class="card-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Li_Auto_logo.svg/1200px-Li_Auto_logo.svg.png" alt="Li Auto" class="car-logo">
+                    <span class="car-type hybrid">增程式</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="car-brand">理想</h3>
+                    <p class="car-model">L9 / L8 / L7 / L6</p>
+                    <div class="price-range">
+                        <span class="price-tag">¥259,800 - ¥459,800</span>
+                    </div>
+                    <p class="car-positioning">家庭豪华智能电动车</p>
+                    <div class="features-title">主要特点</div>
+                    <ul class="features-list">
+                        <li>增程式电动技术(无续航焦虑)</li>
+                        <li>家庭用户导向设计</li>
+                        <li>五屏交互系统</li>
+                        <li>NOA导航辅助驾驶</li>
+                        <li>超大空间与舒适配置</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 小鹏 -->
+            <div class="card" data-type="electric">
+                <div class="card-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Xpeng_logo.svg/1200px-Xpeng_logo.svg.png" alt="XPeng" class="car-logo">
+                    <span class="car-type electric">纯电动</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="car-brand">小鹏</h3>
+                    <p class="car-model">G9 / G6 / P7 / X9</p>
+                    <div class="price-range">
+                        <span class="price-tag">¥209,900 -¥469,900</span>
+                    </div>
+                    <p class="car-positioning">智能科技电动汽车</p>
+                    <div class="features-title">主要特点</div>
+                    <ul class="features-list">
+                        <li>XNGP全场景智能辅助驾驶</li>
+                        <li>800V高压快充平台</li>
+                        <li>Xmart OS车载系统</li>
+                        <li>全场景语音交互</li>
+                        <li>城市NGP功能</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 大众 -->
+            <div class="card" data-type="gasoline electric">
+                <div class="card-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Volkswagen_logo_2019.svg/1200px-Volkswagen_logo_2019.svg.png" alt="Volkswagen" class="car-logo">
+                    <span class="car-type gasoline">燃油/电动</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="car-brand">大众</h3>
+                    <p class="car-model">ID.系列 / 迈腾 / 帕萨特 / 高尔夫</p>
+                    <div class="price-range">
+                        <span class="price-tag">¥129,900 -¥399,900</span>
+                    </div>
+                    <p class="car-positioning">德系品质，全面电动化转型</p>
+                    <div class="features-title">主要特点</div>
+                    <ul class="features-list">
+                        <li>MEB纯电平台</li>
+                        <li>扎实的德系底盘调校</li>
+                        <li>ID.系列智能化配置</li>
+                        <li>传统燃油车可靠性</li>
+                        <li>全面电动化战略</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 丰田 -->
+            <div class="card" data-type="gasoline hybrid">
+                <div class="card-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Toyota_carlogo.svg/1200px-Toyota_carlogo.svg.png" alt="Toyota" class="car-logo">
+                    <span class="car-type hybrid">混动/燃油</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="car-brand">丰田</h3>
+                    <p class="car-model">凯美瑞 / 卡罗拉 / RAV4 / bZ系列</p>
+                    <div class="price-range">
+                        <span class="price-tag">¥109,800 -¥409,800</span>
+                    </div>
+                    <p class="car-positioning">可靠耐用，混动技术领先</p>
+                    <div class="features-title">主要特点</div>
+                    <ul class="features-list">
+                        <li>THS混合动力系统</li>
+                        <li>TSS智行安全系统</li>
+                        <li>bZ纯电系列</li>
+                        <li>全球高可靠性</li>
+                        <li>成熟的混动技术</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 宝马 -->
+            <div class="card" data-type="gasoline electric hybrid">
+                <div class="card-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/1200px-BMW.svg.png" alt="BMW" class="car-logo">
+                    <span class="car-type hybrid">燃油/电动/混动</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="car-brand">宝马</h3>
+                    <p class="car-model">3系 / 5系 / 7系 / X3 / iX / i3</p>
+                    <div class="price-range">
+                        <span class="price-tag">¥209,900 -¥1,659,900</span>
+                    </div>
+                    <p class="car-positioning">豪华运动驾驶体验</p>
+                    <div class="features-title">主要特点</div>
+                    <ul class="features-list">
+                        <li>i系列纯电动车型</li>
+                        <li>卓越的操控性能</li>
+                        <li>iDrive智能交互系统</li>
+                        <li>豪华内饰工艺</li>
+                        <li>电动化战略"Neue Klasse"</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 小米汽车 -->
+            <div class="card" data-type="electric">
+                <div class="card-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Xiaomi_logo_%282021-%29.svg/1200px-Xiaomi_logo_%282021-%29.svg.png" alt="Xiaomi" class="car-logo">
+                    <span class="car-type electric">纯电动</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="car-brand">小米汽车</h3>
+                    <p class="car-model">SU7 / SU7 Pro / SU7 Max</p>
+                    <div class="price-range">
+                        <span class="price-tag">¥215,900 -¥299,900</span>
+                    </div>
+                    <p class="car-positioning">科技生态智能电动车</p>
+                    <div class="features-title">主要特点</div>
+                    <ul class="features-list">
+                        <li>HyperOS车机系统</li>
+                        <li>HyperOS车机系统</li>
+                        <li>小米生态互联体验</li>
+                        <li>超级电机技术</li>
+                        <li>800V高压快充平台</li>
+                        <li>智能座舱与自动驾驶</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 奔驰 -->
+                <div class="card" data-type="gasoline electric hybrid">
+                    <div class="card-header">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Mercedes-Benz_logo.svg/1200px-Mercedes-Benz_logo.svg.png" alt="Mercedes-Benz" class="car-logo">
+                        <span class="car-type hybrid">燃油/电动/混动</span>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="car-brand">奔驰</h3>
+                        <p class="car-model">E级 / S级 / C级 / EQE / EQS / GLC</p>
+                        <div class="price-range">
+                            <span class="price-tag">¥329,900 -¥2,899,900</span>
+                        </div>
+                        <p class="car-positioning">豪华与科技的完美结合</p>
+                        <div class="features-title">主要特点</div>
+                        <ul class="features-list">
+                            <li>EQ系列纯电动车型</li>
+                            <li>MBUX智能交互系统</li>
+                            <li>豪华内饰与精湛工艺</li>
+                            <li>先进的驾驶辅助系统</li>
+                            <li>电动化战略"全面电动"</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 奥迪 -->
+                <div class="card" data-type="gasoline electric hybrid">
+                    <div class="card-header">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Audi_logo_detail.svg/1200px-Audi_logo_detail.svg.png" alt="Audi" class="car-logo">
+                        <span class="car-type hybrid">燃油/电动/混动</span>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="car-brand">奥迪</h3>
+                        <p class="car-model">A4 / A6 / A8 / Q5 / e-tron系列</p>
+                        <div class="price-range">
+                            <span class="price-tag">¥259,900 -¥1,899,900</span>
+                        </div>
+                        <p class="car-positioning">科技引领未来出行</p>
+                        <div class="features-title">主要特点</div>
+                        <ul class="features-list">
+                            <li>e-tron纯电动系列</li>
+                            <li>quattro四驱系统</li>
+                            <li>虚拟座舱技术</li>
+                            <li>矩阵式LED大灯</li>
+                            <li>Vorsprung 2030电动战略</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 本田 -->
+                <div class="card" data-type="gasoline hybrid">
+                    <div class="card-header">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Honda_logo.svg/1200px-Honda_logo.svg.png" alt="Honda" class="car-logo">
+                        <span class="car-type hybrid">燃油/混动</span>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="car-brand">本田</h3>
+                        <p class="car-model">雅阁 / 思域 / CR-V / 飞度 / e:NS1</p>
+                        <div class="price-range">
+                            <span class="price-tag">¥89,800 -¥289,800</span>
+                        </div>
+                        <p class="car-positioning">实用可靠，混动技术成熟</p>
+                        <div class="features-title">主要特点</div>
+                        <ul class="features-list">
+                            <li>i-MMD混合动力系统</li>
+                            <li>Honda SENSING安全系统</li>
+                            <li>e:N纯电系列</li>
+                            <li>VTEC发动机技术</li>
+                            <li>MM空间最大化理念</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 吉利 -->
+                <div class="card" data-type="electric hybrid">
+                    <div class="card-header">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Geely_Logo.svg/1200px-Geely_Logo.svg.png" alt="Geely" class="car-logo">
+                        <span class="car-type hybrid">电动/混动</span>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="car-brand">吉利</h3>
+                        <p class="car-model">星越L / 博越L / 帝豪L / 极氪系列</p>
+                        <div class="price-range">
+                            <span class="price-tag">¥79,800 -¥589,800</span>
+                        </div>
+                        <p class="car-positioning">中国品牌全球化代表</p>
+                        <div class="features-title">主要特点</div>
+                        <ul class="features-list">
+                            <li>CMA超级母体架构</li>
+                            <li>雷神混动系统</li>
+                            <li>极氪高端电动品牌</li>
+                            <li>银河OS智能系统</li>
+                            <li>全球化研发体系</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 汽车品牌与车型概览 | 数据更新至2025年3月</p>
+        </footer>
+    
+        <script>
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelector('.filter-btn.active').classList.remove('active');
+                    this.classList.add('active');
+                    
+                    const filter = this.dataset.filter;
+                    const cards = document.querySelectorAll('.card');
+                    
+                    cards.forEach(card => {
+                        if (filter === 'all' || card.dataset.type.includes(filter)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+    </html>                       
