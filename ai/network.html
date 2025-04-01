@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算机网络核心知识</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #e74c3c;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --text: #34495e;
+            --muted: #7f8c8d;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f7fa;
+            color: var(--text);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .network-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .topic-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .topic-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            position: relative;
+        }
+        
+        .topic-name {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .topic-category {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            display: inline-block;
+            padding: 3px 10px;
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 20px;
+        }
+        
+        .topic-body {
+            padding: 20px;
+        }
+        
+        .topic-description {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .protocol-list {
+            margin: 15px 0;
+        }
+        
+        .protocol-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .protocol-item::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+        
+        .protocol-name {
+            font-weight: bold;
+            color: var(--primary);
+            margin-right: 8px;
+        }
+        
+        .protocol-desc {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+        
+        .layer-model {
+            background-color: rgba(52, 152, 219, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .layer-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        
+        .layer-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            padding: 5px 0;
+            border-bottom: 1px dashed rgba(0,0,0,0.1);
+        }
+        
+        .layer-number {
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .example {
+            background-color: rgba(46, 204, 113, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .example-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--secondary);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .network-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .topic-card {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        /* 为每张卡片设置不同的延迟 */
+        .topic-card:nth-child(1) { animation-delay: 0.1s; }
+        .topic-card:nth-child(2) { animation-delay: 0.2s; }
+        .topic-card:nth-child(3) { animation-delay: 0.3s; }
+        .topic-card:nth-child(4) { animation-delay: 0.4s; }
+        .topic-card:nth-child(5) { animation-delay: 0.5s; }
+        .topic-card:nth-child(6) { animation-delay: 0.6s; }
+        .topic-card:nth-child(7) { animation-delay: 0.7s; }
+        .topic-card:nth-child(8) { animation-delay: 0.8s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>计算机网络核心知识</h1>
+            <p class="subtitle">连接数字世界的桥梁</p>
+        </header>
+        
+        <div class="network-grid">
+            <!-- OSI七层模型 -->
+            <div class="topic-card">
+                <div class="topic-header">
+                    <h2 class="topic-name">OSI七层模型</h2>
+                    <span class="topic-category">网络架构</span>
+                </div>
+                <div class="topic-body">
+                    <p class="topic-description">开放系统互连参考模型，将网络通信分为七个抽象层，每层提供特定服务。</p>
+                    
+                    <div class="layer-model">
+                        <div class="layer-title">七层架构</div>
+                        <div class="layer-item">
+                            <span class="layer-number">7</span>
+                            <span>应用层 (Application)</span>
+                        </div>
+                        <div class="layer-item">
+                            <span class="layer-number">6</span>
+                            <span>表示层 (Presentation)</span>
+                        </div>
+                        <div class="layer-item">
+                            <span class="layer-number">5</span>
+                            <span>会话层 (Session)</span>
+                        </div>
+                        <div class="layer-item">
+                            <span class="layer-number">4</span>
+                            <span>传输层 (Transport)</span>
+                        </div>
+                        <div class="layer-item">
+                            <span class="layer-number">3</span>
+                            <span>网络层 (Network)</span>
+                        </div>
+                        <div class="layer-item">
+                            <span class="layer-number">2</span>
+                            <span>数据链路层 (Data Link)</span>
+                        </div>
+                        <div class="layer-item">
+                            <span class="layer-number">1</span>
+                            <span>物理层 (Physical)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">实际应用</div>
+                        <p>TCP/IP协议栈是OSI模型的简化实现，广泛应用于互联网。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TCP/IP协议栈 -->
+            <div class="topic-card">
+                <div class="topic-header">
+                    <h2 class="topic-name">TCP/IP协议栈</h2>
+                    <span class="topic-category">网络架构</span>
+                </div>
+                <div class="topic-body">
+                    <p class="topic-description">互联网的基础协议套件，由四层组成，是实际应用最广泛的网络模型。</p>
+                    
+                    <div class="protocol-list">
+                        <div class="protocol-item">
+                            <span class="protocol-name">应用层</span>
+                            <span class="protocol-desc">HTTP, FTP, DNS, SMTP等</span>
+                        </div>
+                        <div class="protocol-item">
+                            <span class="protocol-name">传输层</span>
+                            <span class="protocol-desc">TCP, UDP</span>
+                        </div>
+                        <div class="protocol-item">
+                            <span class="protocol-name">网络层</span>
+                            <span class="protocol-desc">IP, ICMP, ARP</span>
+                        </div>
+                        <div class="protocol-item">
+                            <span class="protocol-name">网络接口层</span>
+                            <span class="protocol-desc">以太网, Wi-Fi等</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">关键特性</div>
+                        <p>端到端原则、分组交换、IP地址唯一标识、TCP可靠传输。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- HTTP/HTTPS -->
+            <div class="topic-card">
+                <div class="topic-header">
+                    <h2 class="topic-name">HTTP/HTTPS</h2>
+                    <span class="topic-category">应用层协议</span>
+                </div>
+                <div class="topic-body">
+                    <p class="topic-description">超文本传输协议，是万维网数据通信的基础。</p>
+                    
+                    <div class="protocol-list">
+                        <div class="protocol-item">
+                            <span class="protocol-name">HTTP</span>
+                            <span class="protocol-desc">无状态、明文传输、默认端口80</span>
+                        </div>
+                        <div class="protocol-item">
+                            <span class="protocol-name">HTTPS</span>
+                            <span class="protocol-desc">HTTP over TLS/SSL、加密传输、默认端口443</span>
+                        </div>
+                        <div class="protocol-item">
+                            <span class="protocol-name">HTTP/2</span>
+                            <span class="protocol-desc">多路复用、头部压缩、服务器推送</span>
+                        </div>
+                        <div class="protocol-item">
+                            <span class="protocol-name">HTTP/3</span>
+                            <span class="protocol-desc">基于QUIC、改进的拥塞控制</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">请求方法</div>
+                        <p>GET(获取)、POST(提交)、PUT(更新)、DELETE(删除)、HEAD(获取头信息)等。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TCP与UDP -->
+            <div class="topic-card">
+                <div class="topic-header">
+                    <h2 class="topic-name">TCP与UDP</h2>
+                    <span class="topic-category">传输层协议</span>
+                </div>
+                <div class="topic-body">
+                    <p class="topic-description">两种主要的传输层协议，提供不同的数据传输服务。</p>
+                    
+                    <div class="protocol-list">
+                        <div class="protocol-item">
+                            <span class="protocol-name">TCP</span>
+                            <span class="protocol-desc">面向连接、可靠传输、流量控制、拥塞控制</span>
+                        </div>
+                        <div class="protocol-item">
+                            <span class="protocol-name">UDP</span>
+                            <span class="protocol-desc">无连接、不可靠但高效、低延迟</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">应用场景</div>
+                        <p>TCP: 网页浏览、文件传输、电子邮件。UDP: 视频流、在线游戏、DNS查询。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- IP协议 -->
+            <div class="topic-card">
+                <div class="topic-header">
+                    <h2 class="topic-name">IP协议</h2>
+                    <span class="topic-category">网络层协议</span>
+                </div>
+                <div class="topic-body">
+                    <p class="topic-description">互联网协议，负责将数据包从源主机路由到目标主机。</p>
+                    
+                    <div class="protocol-list">
+                        <div class="protocol-item">
+                            <span class="protocol-name">IPv4</span>
+                            <span class="protocol-desc">32位地址、约42亿个地址、点分十进制表示</span>
+                        </div>
+                        <div class="protocol-item">
+                            <span class="protocol-name">IPv6</span>
+                            <span class="protocol-desc">128位地址、近乎无限地址、冒号分隔十六进制</span>
+                        </div>
+                        <div class="protocol-item">
+                            <span class="protocol-name">NAT</span>
+                            <span class="protocol-desc">网络地址转换，缓解IPv4短缺</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">关键概念</div>
+                        <p>IP地址、子网掩码、网关、路由表、TTL(生存时间)。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- DNS系统 -->
+            <div class="topic-card">
+                <div class="topic-header">
+                    <h2 class="topic-name">DNS系统</h2>
+                    <span class="topic-category">应用层服务</span>
+                </div>
+                <div class="topic-body">
+                    <p class="topic-description">域名系统，将人类可读的域名转换为机器可读的IP地址。</p>
+                    
+                    <div class="protocol-list">
+                        <div class="protocol-item">
+                            <span class="protocol-name">递归查询</span>
+                            <span class="protocol-desc">客户端到本地DNS服务器的查询</span>
+                        </div>
+                        <div class="protocol-item">
+                            <span class="protocol-name">迭代查询</span>
+                            <span class="protocol-desc">DNS服务器之间的查询</span>
+                        </div>
+                        <div class="protocol-item">
+                            <span class="protocol-name">记录类型</span>
+                            <span class="protocol-desc">A(IPv4)、AAAA(IPv6)、CNAME(别名)、MX(邮件)等</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">解析过程</div>
+                        <p>浏览器缓存 → 系统缓存 → 路由器缓存 → ISP DNS → 根域名服务器 → 顶级域名服务器 → 权威域名服务器。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 网络安全 -->
+            <div class="topic-card">
+                <div class="topic-header">
+                    <h2 class="topic-name">网络安全</h2>
+                    <span class="topic-category">安全技术</span>
+                </div>
+                <div class="topic-body">
+                    <p class="topic-description">保护网络系统和数据免受攻击、破坏或未授权访问。</p>
+                    
+                    <div class="protocol-list">
+                        <div class="protocol-item">
+                            <span class="protocol-name">TLS/SSL</span>
+                            <span class="protocol-desc">传输层安全协议，提供加密通信</span>
+                        </div>
+                        <div class="protocol-item">
+                            <span class="protocol-name">防火墙</span>
+                            <span class="protocol-desc">网络流量过滤，阻止未授权访问</span>
+                        </div>
+                        <div class="protocol-item">
+                            <span class="protocol-name">VPN</span>
+                            <span class="protocol-desc">虚拟专用网络，创建安全隧道</span>
+                        </div>
+                        <div class="protocol-item">
+                            <span class="protocol-name">攻击类型</span>
+                            <span class="protocol-desc">DDoS、中间人攻击、SQL注入、XSS等</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">防御措施</div>
+                        <p>加密通信、定期更新、最小权限原则、多因素认证、入侵检测系统。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- WebSocket -->
+            <div class="topic-card">
+                <div class="topic-header">
+                    <h2 class="topic-name">WebSocket</h2>
+                    <span class="topic-category">实时通信</span>
+                </div>
+                <div class="topic-body">
+                    <p class="topic-description">全双工通信协议，在单个TCP连接上提供持久性连接。</p>
+                    
+                    <div class="protocol-list">
+                        <div class="protocol-item">
+                            <span class="protocol-name">特点</span>
+                            <span class="protocol-desc">低延迟、双向通信、轻量级</span>
+                        </div>
+                        <div class="protocol-item">
+                            <span class="protocol-name">握手</span>
+                            <span class="protocol-desc">通过HTTP Upgrade头建立连接</span>
+                        </div>
+                        <div class="protocol-item">
+                            <span class="protocol-name">帧类型</span>
+                            <span class="protocol-desc">文本、二进制、ping/pong、关闭</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">应用场景</div>
+                        <p>实时聊天、在线游戏、股票行情、协同编辑等需要实时数据更新的应用。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>计算机网络是现代数字世界的基石，理解其核心原理对开发高效可靠的网络应用至关重要。</p>
+            <p>© 2023 计算机网络核心知识 | 数字世界的连接者</p>
+        </footer>
+    </div>
+</body>
+</html>
