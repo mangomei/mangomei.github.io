@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24种设计模式画廊</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #34495e;
+            --muted-color: #7f8c8d;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f7fa;
+            color: var(--text-color);
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+        
+        .pattern-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .pattern-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            padding: 15px 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            position: relative;
+        }
+        
+        .pattern-number {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            opacity: 0.2;
+        }
+        
+        .pattern-name {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+        
+        .pattern-type {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            display: inline-block;
+            padding: 3px 8px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .intent {
+            font-style: italic;
+            color: var(--muted-color);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .section-title {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin: 15px 0 8px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
+            margin-right: 8px;
+            border-radius: 50%;
+        }
+        
+        .example {
+            background-color: rgba(52, 152, 219, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .example-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--secondary-color);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: var(--muted-color);
+            font-size: 0.9rem;
+        }
+        
+        /* 分类颜色 */
+        .creational { border-top: 4px solid #2ecc71; }
+        .structural { border-top: 4px solid #e67e22; }
+        .behavioral { border-top: 4px solid #9b59b6; }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pattern-card {
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        /* 为每张卡片设置不同的延迟 */
+        .pattern-card:nth-child(1) { animation-delay: 0.1s; }
+        .pattern-card:nth-child(2) { animation-delay: 0.2s; }
+        .pattern-card:nth-child(3) { animation-delay: 0.3s; }
+        .pattern-card:nth-child(4) { animation-delay: 0.4s; }
+        .pattern-card:nth-child(5) { animation-delay: 0.5s; }
+        .pattern-card:nth-child(6) { animation-delay: 0.6s; }
+        .pattern-card:nth-child(7) { animation-delay: 0.7s; }
+        .pattern-card:nth-child(8) { animation-delay: 0.8s; }
+        .pattern-card:nth-child(9) { animation-delay: 0.9s; }
+        .pattern-card:nth-child(10) { animation-delay: 1.0s; }
+        .pattern-card:nth-child(11) { animation-delay: 1.1s; }
+        .pattern-card:nth-child(12) { animation-delay: 1.2s; }
+        .pattern-card:nth-child(13) { animation-delay: 1.3s; }
+        .pattern-card:nth-child(14) { animation-delay: 1.4s; }
+        .pattern-card:nth-child(15) { animation-delay: 1.5s; }
+        .pattern-card:nth-child(16) { animation-delay: 1.6s; }
+        .pattern-card:nth-child(17) { animation-delay: 1.7s; }
+        .pattern-card:nth-child(18) { animation-delay: 1.8s; }
+        .pattern-card:nth-child(19) { animation-delay: 1.9s; }
+        .pattern-card:nth-child(20) { animation-delay: 2.0s; }
+        .pattern-card:nth-child(21) { animation-delay: 2.1s; }
+        .pattern-card:nth-child(22) { animation-delay: 2.2s; }
+        .pattern-card:nth-child(23) { animation-delay: 2.3s; }
+        .pattern-card:nth-child(24) { animation-delay: 2.4s; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>24种设计模式画廊</h1>
+        <p class="subtitle">软件设计的经典解决方案</p>
+    </header>
+    
+    <div class="filter-container">
+        <button class="filter-btn active" data-filter="all">全部模式</button>
+        <button class="filter-btn" data-filter="creational">创建型 (5)</button>
+        <button class="filter-btn" data-filter="structural">结构型 (7)</button>
+        <button class="filter-btn" data-filter="behavioral">行为型 (12)</button>
+    </div>
+    
+    <div class="gallery">
+        <!-- 创建型模式 (5种) -->
+        <div class="pattern-card creational">
+            <div class="card-header">
+                <span class="pattern-number">01</span>
+                <h2 class="pattern-name">工厂方法模式</h2>
+                <span class="pattern-type">Factory Method</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">定义一个创建对象的接口，但让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>当一个类不知道它所需要的对象的类时；当一个类希望由它的子类来指定它所创建的对象时。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>日志记录器可以根据不同的配置创建文件日志记录器或数据库日志记录器。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card creational">
+            <div class="card-header">
+                <span class="pattern-number">02</span>
+                <h2 class="pattern-name">抽象工厂模式</h2>
+                <span class="pattern-type">Abstract Factory</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>系统需要独立于其产品的创建、组合和表示时；系统需要配置多个产品系列中的一个时。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>GUI库可以创建跨平台的窗口、按钮等组件，确保所有组件都来自同一风格(如Windows风格或Mac风格)。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card creational">
+            <div class="card-header">
+                <span class="pattern-number">03</span>
+                <h2 class="pattern-name">建造者模式</h2>
+                <span class="pattern-type">Builder</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>当创建复杂对象的算法应该独立于该对象的组成部分以及它们的装配方式时；当构造过程必须允许被构造的对象有不同的表示时。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>创建一顿套餐，可以选择不同的主食、饮料和甜点组合，而不需要了解具体的制作过程。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card creational">
+            <div class="card-header">
+                <span class="pattern-number">04</span>
+                <h2 class="pattern-name">原型模式</h2>
+                <span class="pattern-type">Prototype</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>当一个系统应该独立于它的产品创建、构成和表示时；当要实例化的类是在运行时指定时；为了避免创建一个与产品类层次平行的工厂类层次时。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>细胞分裂，通过复制自身创建新对象；或者图形编辑器中的复制粘贴功能。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card creational">
+            <div class="card-header">
+                <span class="pattern-number">05</span>
+                <h2 class="pattern-name">单例模式</h2>
+                <span class="pattern-type">Singleton</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>当类只能有一个实例而且客户可以从一个众所周知的访问点访问它时；当这个唯一实例应该是通过子类化可扩展的，并且客户应该无需更改代码就能使用一个扩展的实例时。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>应用程序中的日志记录器、配置管理器、数据库连接池等通常只需要一个实例。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 结构型模式 (7种) -->
+        <div class="pattern-card structural">
+            <div class="card-header">
+                <span class="pattern-number">06</span>
+                <h2 class="pattern-name">适配器模式</h2>
+                <span class="pattern-type">Adapter</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">将一个类的接口转换成客户希望的另外一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>想使用一个已经存在的类，而它的接口不符合你的需求；想创建一个可以复用的类，该类可以与其他不相关的类或不可预见的类协同工作。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>电源适配器将220V电压转换为5V电压；或者将第三方库的接口转换为应用程序期望的接口。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card structural">
+            <div class="card-header">
+                <span class="pattern-number">07</span>
+                <h2 class="pattern-name">桥接模式</h2>
+                <span class="pattern-type">Bridge</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">将抽象部分与它的实现部分分离，使它们都可以独立地变化。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>不希望在抽象和它的实现部分之间有一个固定的绑定关系；类的抽象以及它的实现都应该可以通过生成子类的方法加以扩充。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>不同操作系统上的图形界面API(实现)与应用程序的图形界面(抽象)分离。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card structural">
+            <div class="card-header">
+                <span class="pattern-number">08</span>
+                <h2 class="pattern-name">组合模式</h2>
+                <span class="pattern-type">Composite</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">将对象组合成树形结构以表示"部分-整体"的层次结构。组合模式使得用户对单个对象和组合对象的使用具有一致性。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>想表示对象的部分-整体层次结构；希望用户忽略组合对象与单个对象的不同，用户将统一地使用组合结构中的所有对象。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>文件系统中的文件和文件夹；GUI中的容器组件和基本组件。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card structural">
+            <div class="card-header">
+                <span class="pattern-number">09</span>
+                <h2 class="pattern-name">装饰器模式</h2>
+                <span class="pattern-type">Decorator</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">动态地给一个对象添加一些额外的职责。就增加功能来说，装饰器模式相比生成子类更为灵活。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>在不影响其他对象的情况下，以动态、透明的方式给单个对象添加职责；处理那些可以撤销的职责。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>Java I/O流中的BufferedInputStream和DataInputStream；为文本添加加粗、斜体等格式。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card structural">
+            <div class="card-header">
+                <span class="pattern-number">10</span>
+                <h2 class="pattern-name">外观模式</h2>
+                <span class="pattern-type">Facade</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">为子系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>要为一个复杂子系统提供一个简单接口时；客户程序与抽象类的实现部分之间存在着很大的依赖性。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>编译器可能包含词法分析、语法分析、语义分析、中间代码生成等多个子系统，但对外只提供一个compile()接口。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card structural">
+            <div class="card-header">
+                <span class="pattern-number">11</span>
+                <h2 class="pattern-name">享元模式</h2>
+                <span class="pattern-type">Flyweight</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">运用共享技术有效地支持大量细粒度的对象。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>一个应用程序使用了大量的对象；完全由于使用大量的对象，造成很大的存储开销；对象的大多数状态都可变为外部状态。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>文本编辑器中的字符对象，相同的字符共享同一个对象；围棋游戏中的棋子对象。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card structural">
+            <div class="card-header">
+                <span class="pattern-number">12</span>
+                <h2 class="pattern-name">代理模式</h2>
+                <span class="pattern-type">Proxy</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">为其他对象提供一种代理以控制对这个对象的访问。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>远程代理为一个对象在不同地址空间提供局部代表；虚拟代理根据需要创建开销很大的对象；保护代理控制对原始对象的访问。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>图片的懒加载代理；远程服务调用的代理；访问控制的保护代理。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 行为型模式 (12种) -->
+        <div class="pattern-card behavioral">
+            <div class="card-header">
+                <span class="pattern-number">13</span>
+                <h2 class="pattern-name">责任链模式</h2>
+                <span class="pattern-type">Chain of Responsibility</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>有多个对象可以处理一个请求，哪个对象处理该请求运行时刻自动确定；想在不明确指定接收者的情况下，向多个对象中的一个提交一个请求。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>事件冒泡机制；审批流程中的多级审批；异常处理链。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card behavioral">
+            <div class="card-header">
+                <span class="pattern-number">14</span>
+                <h2 class="pattern-name">命令模式</h2>
+                <span class="pattern-type">Command</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">将一个请求封装为一个对象，从而使你可用不同的请求对客户进行参数化；对请求排队或记录请求日志，以及支持可撤销的操作。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>需要抽象出待执行的动作以参数化某对象；需要在不同的时刻指定、排列和执行请求；需要支持取消操作。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>图形编辑器中的撤销/重做功能；餐厅的点餐系统；宏命令。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card behavioral">
+            <div class="card-header">
+                <span class="pattern-number">15</span>
+                <h2 class="pattern-name">解释器模式</h2>
+                <span class="pattern-type">Interpreter</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">给定一个语言，定义它的文法的一种表示，并定义一个解释器，这个解释器使用该表示来解释语言中的句子。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>当有一个语言需要解释执行，并且你可将该语言中的句子表示为一个抽象语法树时。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>正则表达式解释器；SQL解析器；数学表达式计算器。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card behavioral">
+            <div class="card-header">
+                <span class="pattern-number">16</span>
+                <h2 class="pattern-name">迭代器模式</h2>
+                <span class="pattern-type">Iterator</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">提供一种方法顺序访问一个聚合对象中各个元素，而又不需暴露该对象的内部表示。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>需要访问一个聚合对象的内容而无需暴露它的内部表示；支持对聚合对象的多种遍历；为遍历不同的聚合结构提供一个统一的接口。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>Java中的Iterator接口；树的前序、中序、后序遍历。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card behavioral">
+            <div class="card-header">
+                <span class="pattern-number">17</span>
+                <h2 class="pattern-name">中介者模式</h2>
+                <span class="pattern-type">Mediator</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">用一个中介对象来封装一系列的对象交互。中介者使各对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变它们之间的交互。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>一组对象以定义良好但是复杂的方式进行通信，产生的相互依赖关系结构混乱且难以理解。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>航空管制系统作为飞机之间的中介；GUI中的对话框作为各控件的中介。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card behavioral">
+            <div class="card-header">
+                <span class="pattern-number">18</span>
+                <h2 class="pattern-name">备忘录模式</h2>
+                <span class="pattern-type">Memento</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。这样以后就可将该对象恢复到原先保存的状态。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>必须保存一个对象在某一个时刻的部分或完整状态，这样以后需要时它才能恢复到先前的状态。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>文本编辑器的撤销功能；游戏的存档功能；数据库的事务回滚。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card behavioral">
+            <div class="card-header">
+                <span class="pattern-number">19</span>
+                <h2 class="pattern-name">观察者模式</h2>
+                <span class="pattern-type">Observer</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>当一个抽象模型有两个方面，其中一个方面依赖于另一个方面；当对一个对象的改变需要同时改变其他对象，而不知道具体有多少对象有待改变。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>事件监听机制；发布-订阅系统；MVC模式中的模型与视图关系。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card behavioral">
+            <div class="card-header">
+                <span class="pattern-number">20</span>
+                <h2 class="pattern-name">状态模式</h2>
+                <span class="pattern-type">State</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">允许一个对象在其内部状态改变时改变它的行为。对象看起来似乎修改了它的类。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>一个对象的行为取决于它的状态，并且它必须在运行时刻根据状态改变它的行为；一个操作中含有庞大的多分支的条件语句，且这些分支依赖于该对象的状态。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>电梯的不同状态(开门、关门、运行、停止)；TCP连接的不同状态；订单的不同状态(待支付、已支付、已发货等)。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card behavioral">
+            <div class="card-header">
+                <span class="pattern-number">21</span>
+                <h2 class="pattern-name">策略模式</h2>
+                <span class="pattern-type">Strategy</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">定义一系列的算法，把它们一个个封装起来，并且使它们可相互替换。策略模式使得算法可独立于使用它的客户而变化。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>许多相关的类仅仅是行为有异；需要使用一个算法的不同变体；算法使用客户不应该知道的数据。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>排序算法的不同实现(冒泡、快速、归并等)；支付方式的不同选择(信用卡、支付宝、微信等)。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card behavioral">
+            <div class="card-header">
+                <span class="pattern-number">22</span>
+                <h2 class="pattern-name">模板方法模式</h2>
+                <span class="pattern-type">Template Method</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>一次性实现一个算法的不变部分，并将可变的行为留给子类来实现；各子类中公共的行为应被提取出来并集中到一个公共父类中以避免代码重复。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>冲泡饮料的流程(煮水、冲泡、倒入杯中、添加调料)，其中某些步骤可以被子类重写。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card behavioral">
+            <div class="card-header">
+                <span class="pattern-number">23</span>
+                <h2 class="pattern-name">访问者模式</h2>
+                <span class="pattern-type">Visitor</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">表示一个作用于某对象结构中的各元素的操作。它使你可以在不改变各元素的类的前提下定义作用于这些元素的新操作。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>一个对象结构包含很多类对象，它们有不同的接口，而你想对这些对象实施一些依赖于其具体类的操作。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>编译器中的语法树分析；对复杂对象结构的操作(如购物车中不同类型的商品有不同的计算方式)。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pattern-card behavioral">
+            <div class="card-header">
+                <span class="pattern-number">24</span>
+                <h2 class="pattern-name">空对象模式</h2>
+                <span class="pattern-type">Null Object</span>
+            </div>
+            <div class="card-body">
+                <p class="intent">通过提供默认的无行为对象来避免null引用检查，使代码更加简洁。</p>
+                
+                <div class="section-title">适用场景</div>
+                <p>当需要检查null值并且希望提供默认行为时；当客户端代码不应该处理null情况时。</p>
+                
+                <div class="example">
+                    <div class="example-title">示例</div>
+                    <p>日志系统中的空日志记录器；无用户时的匿名用户对象；无数据时的空集合对象。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>设计模式是软件设计中常见问题的典型解决方案，理解这些模式有助于设计更灵活、可维护和可扩展的软件系统。</p>
+        <p>© 2023 设计模式画廊 | 交互式学习体验</p>
+    </footer>
+    
+    <script>
+        // 筛选功能
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 更新活动按钮
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                const cards = document.querySelectorAll('.pattern-card');
+                
+                cards.forEach(card => {
+                    if (filter === 'all' || card.classList.contains(filter)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // 添加卡片悬停动画
+        document.querySelectorAll('.pattern-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px)';
+                card.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.15)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+                card.style.boxShadow = '';
+            });
+        });
+    </script>
+</body>
+</html>
