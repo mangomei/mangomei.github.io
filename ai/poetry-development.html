@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国诗词发展历程</title>
+    <style>
+        :root {
+            --primary: #4a148c;
+            --secondary: #ff6f00;
+            --accent: #00bcd4;
+            --light: #f5f5f5;
+            --dark: #212121;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 2.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+        
+        h1::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            margin: 0.5rem auto;
+            border-radius: 2px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--secondary);
+            top: 2rem;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd)::before {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even)::before {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: 0;
+            left: auto;
+        }
+        
+        .timeline-content h2 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .timeline-content p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .poet {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+        
+        .poet-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+            border: 2px solid var(--accent);
+        }
+        
+        .poet-info {
+            flex: 1;
+        }
+        
+        .poet-name {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+        
+        .poet-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .poem {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f0f7ff;
+            border-left: 3px solid var(--accent);
+            font-style: italic;
+        }
+        
+        .poem-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .era-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--secondary);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 2rem;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 5rem;
+                padding-right: 0;
+                text-align: left !important;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item::before {
+                left: 1rem !important;
+            }
+            
+            .timeline-content::before {
+                left: 0 !important;
+            }
+            
+            .poet {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .poet-img {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>中国诗词发展历程</h1>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="era-tag">诗歌起源</span>
+                    <h2>诗经与楚辞 (先秦时期)</h2>
+                    <p>中国诗歌的源头，奠定了中国文学的现实主义和浪漫主义传统。</p>
+                    
+                    <div class="poet">
+                        <img src="https://placeholder.com/80" alt="屈原" class="poet-img">
+                        <div class="poet-info">
+                            <div class="poet-name">屈原</div>
+                            <div class="poet-desc">楚辞代表人物，中国第一位伟大诗人</div>
+                        </div>
+                    </div>
+                    
+                    <div class="poem">
+                        <div class="poem-title">《离骚》节选</div>
+                        <p>长太息以掩涕兮，哀民生之多艰。<br>
+                        余虽好修姱以鞿羁兮，謇朝谇而夕替。</p>
+                    </div>
+                    
+                    <p><strong>艺术特点:</strong> 四言为主，赋比兴手法，反映社会现实</p>
+                    <p><strong>代表作品:</strong> 《诗经》305篇，《楚辞》中的《离骚》《九歌》等</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="era-tag">辞赋时代</span>
+                    <h2>汉赋 (两汉时期)</h2>
+                    <p>汉代文学的代表，以铺陈夸张为特点的韵文。</p>
+                    
+                    <div class="poet">
+                        <img src="https://placeholder.com/80" alt="司马相如" class="poet-img">
+                        <div class="poet-info">
+                            <div class="poet-name">司马相如</div>
+                            <div class="poet-desc">汉赋四大家之一，代表汉代辞赋最高成就</div>
+                        </div>
+                    </div>
+                    
+                    <div class="poem">
+                        <div class="poem-title">《子虚赋》节选</div>
+                        <p>楚使子虚使于齐，王悉发车骑与使者出畋。<br>
+                        畋罢，子虚过诧乌有先生，亡是公存焉。</p>
+                    </div>
+                    
+                    <p><strong>艺术特点:</strong> 铺陈排比，辞藻华丽，描写宫廷生活</p>
+                    <p><strong>代表作品:</strong> 《子虚赋》《上林赋》《两都赋》等</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="era-tag">诗歌巅峰</span>
+                    <h2>唐诗 (唐代)</h2>
+                    <p>中国诗歌的黄金时代，格律诗达到完美境界。</p>
+                    
+                    <div class="poet">
+                        <img src="https://placeholder.com/80" alt="李白" class="poet-img">
+                        <div class="poet-info">
+                            <div class="poet-name">李白</div>
+                            <div class="poet-desc">诗仙，浪漫主义诗人代表</div>
+                        </div>
+                    </div>
+                    
+                    <div class="poet">
+                        <img src="https://placeholder.com/80" alt="杜甫" class="poet-img">
+                        <div class="poet-info">
+                            <div class="poet-name">杜甫</div>
+                            <div class="poet-desc">诗圣，现实主义诗人代表</div>
+                        </div>
+                    </div>
+                    
+                    <div class="poem">
+                        <div class="poem-title">《将进酒》节选</div>
+                        <p>君不见黄河之水天上来，奔流到海不复回。<br>
+                        君不见高堂明镜悲白发，朝如青丝暮成雪。</p>
+                    </div>
+                    
+                    <div class="poem">
+                        <div class="poem-title">《春望》</div>
+                        <p>国破山河在，城春草木深。<br>
+                        感时花溅泪，恨别鸟惊心。</p>
+                    </div>
+                    
+                    <p><strong>艺术特点:</strong> 格律严谨，意境深远，题材广泛</p>
+                    <p><strong>代表诗人:</strong> 李白、杜甫、白居易、王维等</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="era-tag">词曲兴盛</span>
+                    <h2>宋词 (宋代)</h2>
+                    <p>宋代文学的代表，配合音乐歌唱的诗歌形式。</p>
+                    
+                    <div class="poet">
+                        <img src="https://placeholder.com/80" alt="苏轼" class="poet-img">
+                        <div class="poet-info">
+                            <div class="poet-name">苏轼</div>
+                            <div class="poet-desc">豪放派词人代表，唐宋八大家之一</div>
+                        </div>
+                    </div>
+                    
+                    <div class="poet">
+                        <img src="https://placeholder.com/80" alt="李清照" class="poet-img">
+                        <div class="poet-info">
+                            <div class="poet-name">李清照</div>
+                            <div class="poet-desc">婉约派词人代表，千古第一才女</div>
+                        </div>
+                    </div>
+                    
+                    <div class="poem">
+                        <div class="poem-title">《水调歌头》节选</div>
+                        <p>明月几时有？把酒问青天。<br>
+                        不知天上宫阙，今夕是何年。</p>
+                    </div>
+                    
+                    <div class="poem">
+                        <div class="poem-title">《声声慢》</div>
+                        <p>寻寻觅觅，冷冷清清，凄凄惨惨戚戚。<br>
+                        乍暖还寒时候，最难将息。</p>
+                    </div>
+                    
+                    <p><strong>艺术特点:</strong> 长短句结合，音律优美，抒情细腻</p>
+                    <p><strong>代表词人:</strong> 苏轼、辛弃疾、李清照、柳永等</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="era-tag">戏曲文学</span>
+                    <h2>元曲 (元代)</h2>
+                    <p>元代文学的代表，包括散曲和杂剧两种形式。</p>
+                    
+                    <div class="poet">
+                        <img src="https://placeholder.com/80" alt="关汉卿" class="poet-img">
+                        <div class="poet-info">
+                            <div class="poet-name">关汉卿</div>
+                            <div class="poet-desc">元曲四大家之首，东方莎士比亚</div>
+                        </div>
+                    </div>
+                    
+                    <div class="poem">
+                        <div class="poem-title">《窦娥冤》节选</div>
+                        <p>地也，你不分好歹何为地？<br>
+                        天也，你错勘贤愚枉做天！</p>
+                    </div>
+                    
+                    <p><strong>艺术特点:</strong> 语言通俗，反映社会现实，戏剧性强</p>
+                    <p><strong>代表作家:</strong> 关汉卿、马致远、白朴、郑光祖等</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="era-tag">诗词复兴</span>
+                    <h2>明清诗词 (明清时期)</h2>
+                    <p>在小说戏曲繁荣的同时，传统诗词仍有发展。</p>
+                    
+                    <div class="poet">
+                        <img src="https://placeholder.com/80" alt="纳兰性德" class="poet-img">
+                        <div class="poet-info">
+                            <div class="poet-name">纳兰性德</div>
+                            <div class="poet-desc">清代最著名词人之一，词风哀感顽艳</div>
+                        </div>
+                    </div>
+                    
+                    <div class="poem">
+                        <div class="poem-title">《木兰词》节选</div>
+                        <p>人生若只如初见，何事秋风悲画扇。<br>
+                        等闲变却故人心，却道故人心易变。</p>
+                    </div>
+                    
+                    <p><strong>艺术特点:</strong> 风格多样，既有复古也有创新</p>
+                    <p><strong>代表诗人:</strong> 高启、纳兰性德、龚自珍等</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
