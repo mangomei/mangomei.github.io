@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国近代史发展线路</title>
+    <style>
+        :root {
+            --primary: #4a148c;
+            --secondary: #ff6f00;
+            --accent: #00bcd4;
+            --light: #f5f5f5;
+            --dark: #212121;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 2.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+        
+        h1::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            margin: 0.5rem auto;
+            border-radius: 2px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--secondary);
+            top: 2rem;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd)::before {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even)::before {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: 0;
+            left: auto;
+        }
+        
+        .timeline-content h2 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .timeline-content p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .timeline-content .details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .timeline-content.active .details {
+            max-height: 1000px;
+        }
+        
+        .timeline-content .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .timeline-content .btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .era-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--secondary);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .ruler {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin: 0.2rem;
+        }
+        
+        .event-item {
+            margin: 0.5rem 0;
+            padding-left: 1rem;
+            border-left: 2px solid var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 2rem;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 5rem;
+                padding-right: 0;
+                text-align: left !important;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item::before {
+                left: 1rem !important;
+            }
+            
+            .timeline-content::before {
+                left: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>中国近代史发展线路</h1>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content" onclick="toggleDetails(this)">
+                    <span class="era-tag">半殖民地半封建</span>
+                    <h2>晚清时期 (1840年 - 1912年)</h2>
+                    <p>中国从封建社会向半殖民地半封建社会转变的时期。</p>
+                    <div class="details">
+                        <div class="event-item"><strong>主要统治者:</strong> <span class="ruler">道光帝</span> <span class="ruler">咸丰帝</span> <span class="ruler">同治帝</span> <span class="ruler">光绪帝</span> <span class="ruler">宣统帝</span></div>
+                        <div class="event-item"><strong>政治制度:</strong> 君主专制，总理各国事务衙门设立</div>
+                        <div class="event-item"><strong>重要事件:</strong> 
+                            <ul>
+                                <li>1840-1842年: 第一次鸦片战争，签订《南京条约》</li>
+                                <li>1851-1864年: 太平天国运动</li>
+                                <li>1856-1860年: 第二次鸦片战争，圆明园被毁</li>
+                                <li>1894-1895年: 甲午战争，签订《马关条约》</li>
+                                <li>1898年: 戊戌变法(百日维新)</li>
+                                <li>1900年: 义和团运动，八国联军侵华</li>
+                                <li>1901年: 《辛丑条约》签订</li>
+                                <li>1905年: 废除科举制度</li>
+                                <li>1911年: 辛亥革命爆发</li>
+                            </ul>
+                        </div>
+                        <div class="event-item"><strong>文化发展:</strong> 
+                            <ul>
+                                <li>西学东渐，新式学堂建立</li>
+                                <li>报刊杂志开始流行</li>
+                                <li>白话文运动萌芽</li>
+                            </ul>
+                        </div>
+                        <div class="event-item"><strong>经济特点:</strong> 
+                            <ul>
+                                <li>自然经济逐步解体</li>
+                                <li>民族资本主义产生</li>
+                                <li>外国资本控制中国经济命脉</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <span class="btn">查看更多</span>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content" onclick="toggleDetails(this)">
+                    <span class="era-tag">民国时期</span>
+                    <h2>中华民国 (1912年 - 1949年)</h2>
+                    <p>中国从帝制走向共和的过渡时期，经历了军阀混战、抗日战争和国共内战。</p>
+                    <div class="details">
+                        <div class="event-item"><strong>主要领导人:</strong> <span class="ruler">孙中山</span> <span class="ruler">袁世凯</span> <span class="ruler">蒋介石</span></div>
+                        <div class="event-item"><strong>政治制度:</strong> 共和制，一党专政，五权宪法</div>
+                        <div class="event-item"><strong>重要事件:</strong> 
+                            <ul>
+                                <li>1912年: 中华民国成立，清帝退位</li>
+                                <li>1915年: 新文化运动开始</li>
+                                <li>1919年: 五四运动</li>
+                                <li>1921年: 中国共产党成立</li>
+                                <li>1926-1928年: 北伐战争</li>
+                                <li>1931年: 九一八事变，日本侵占东北</li>
+                                <li>1937-1945年: 抗日战争</li>
+                                <li>1945-1949年: 国共内战</li>
+                            </ul>
+                        </div>
+                        <div class="event-item"><strong>文化发展:</strong> 
+                            <ul>
+                                <li>新文化运动提倡民主与科学</li>
+                                <li>白话文取代文言文</li>
+                                <li>左翼文化运动兴起</li>
+                                <li>电影、话剧等新艺术形式发展</li>
+                            </ul>
+                        </div>
+                        <div class="event-item"><strong>经济特点:</strong> 
+                            <ul>
+                                <li>民族资本主义短暂发展</li>
+                                <li>官僚资本形成</li>
+                                <li>战时经济体制</li>
+                                <li>通货膨胀严重</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <span class="btn">查看更多</span>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content" onclick="toggleDetails(this)">
+                    <span class="era-tag">社会主义</span>
+                    <h2>中华人民共和国 (1949年 - 至今)</h2>
+                    <p>中国共产党领导的社会主义国家建设与发展时期。</p>
+                    <div class="details">
+                        <div class="event-item"><strong>主要领导人:</strong> <span class="ruler">毛泽东</span> <span class="ruler">邓小平</span> <span class="ruler">江泽民</span> <span class="ruler">胡锦涛</span> <span class="ruler">习近平</span></div>
+                        <div class="event-item"><strong>政治制度:</strong> 人民代表大会制度，中国共产党领导的多党合作和政治协商制度</div>
+                        <div class="event-item"><strong>重要事件:</strong> 
+                            <ul>
+                                <li>1949年: 中华人民共和国成立</li>
+                                <li>1950-1953年: 抗美援朝</li>
+                                <li>1953-1957年: 第一个五年计划</li>
+                                <li>1958-1961年: 大跃进运动</li>
+                                <li>1966-1976年: 文化大革命</li>
+                                <li>1978年: 改革开放政策实施</li>
+                                <li>1989年: 六四事件</li>
+                                <li>1997年: 香港回归</li>
+                                <li>1999年: 澳门回归</li>
+                                <li>2001年: 加入世界贸易组织(WTO)</li>
+                                <li>2008年: 北京奥运会</li>
+                                <li>2012年: 习近平当选中共中央总书记</li>
+                                <li>2020年: 全面建成小康社会</li>
+                            </ul>
+                        </div>
+                        <div class="event-item"><strong>文化发展:</strong> 
+                            <ul>
+                                <li>社会主义文化建设</li>
+                                <li>教育普及与科技发展</li>
+                                <li>文化产业繁荣</li>
+                                <li>互联网文化兴起</li>
+                            </ul>
+                        </div>
+                        <div class="event-item"><strong>经济特点:</strong> 
+                            <ul>
+                                <li>计划经济向市场经济转型</li>
+                                <li>经济高速增长</li>
+                                <li>成为世界第二大经济体</li>
+                                <li>科技创新能力提升</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <span class="btn">查看更多</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDetails(element) {
+            element.classList.toggle('active');
+            const btn = element.querySelector('.btn');
+            if (element.classList.contains('active')) {
+                btn.textContent = '收起';
+            } else {
+                btn.textContent = '查看更多';
+            }
+        }
+    </script>
+</body>
+</html>
