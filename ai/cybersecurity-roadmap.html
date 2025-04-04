@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>网络安全学习路线图</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        h1 {
+            color: #d35400;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            border-bottom: 1px solid #ddd;
+        }
+        .roadmap {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .phase {
+            margin-bottom: 30px;
+            border-left: 4px solid #d35400;
+            padding-left: 20px;
+            position: relative;
+        }
+        .phase-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #d35400;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .phase-title:before {
+            content: "";
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-color: #d35400;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .tracks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-left: 26px;
+        }
+        .track {
+            flex: 1;
+            min-width: 300px;
+            background-color: #f9f9f9;
+            border-radius: 6px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .track-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .topics {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .topic {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .topic:before {
+            content: "•";
+            color: #d35400;
+            position: absolute;
+            left: 0;
+            font-size: 20px;
+        }
+        .sub-topics {
+            list-style-type: none;
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+        .sub-topic {
+            margin-bottom: 5px;
+            position: relative;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        .sub-topic:before {
+            content: "◦";
+            color: #d35400;
+            position: absolute;
+            left: -15px;
+        }
+        .resources {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .resources-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted #777;
+            cursor: help;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 13px;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .timeline {
+            position: absolute;
+            left: -30px;
+            top: 0;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        @media (max-width: 768px) {
+            .tracks {
+                flex-direction: column;
+            }
+            .track {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>网络安全学习路线图</h1>
+        
+        <div class="roadmap">
+            <!-- 第一阶段 -->
+            <div class="phase">
+                <div class="phase-title">第一阶段：基础知识 (1-3个月)</div>
+                <div class="tracks">
+                    <div class="track">
+                        <div class="track-title">计算机基础</div>
+                        <ul class="topics">
+                            <li class="topic">计算机组成原理
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">CPU、内存、存储工作原理</li>
+                                    <li class="sub-topic">操作系统基础概念</li>
+                                </ul>
+                            </li>
+                            <li class="topic">网络基础
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">OSI七层模型/TCP/IP模型</li>
+                                    <li class="sub-topic">常见协议(HTTP/HTTPS, DNS, FTP等)</li>
+                                    <li class="sub-topic">IP地址、子网划分</li>
+                                </ul>
+                            </li>
+                            <li class="topic">Linux基础
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">基本命令操作</li>
+                                    <li class="sub-topic">文件权限管理</li>
+                                    <li class="sub-topic">Shell脚本基础</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="resources">
+                            <div class="resources-title">推荐资源</div>
+                            《计算机网络：自顶向下方法》、Linux命令行与Shell脚本编程大全
+                        </div>
+                    </div>
+                    
+                    <div class="track">
+                        <div class="track-title">编程基础</div>
+                        <ul class="topics">
+                            <li class="topic">Python编程
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">基础语法</li>
+                                    <li class="sub-topic">网络编程(socket, requests)</li>
+                                    <li class="sub-topic">自动化脚本编写</li>
+                                </ul>
+                            </li>
+                            <li class="topic">Bash脚本
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">基本语法</li>
+                                    <li class="sub-topic">系统管理脚本</li>
+                                </ul>
+                            </li>
+                            <li class="topic">C语言基础
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">指针与内存管理</li>
+                                    <li class="sub-topic">缓冲区概念</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="resources">
+                            <div class="resources-title">推荐资源</div>
+                            《Python编程：从入门到实践》、"Linux命令行与Shell脚本编程大全"
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第二阶段 -->
+            <div class="phase">
+                <div class="phase-title">第二阶段：网络安全基础 (3-6个月)</div>
+                <div class="tracks">
+                    <div class="track">
+                        <div class="track-title">网络与系统安全</div>
+                        <ul class="topics">
+                            <li class="topic">网络协议安全
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">ARP欺骗</li>
+                                    <li class="sub-topic">DNS劫持</li>
+                                    <li class="sub-topic">中间人攻击</li>
+                                </ul>
+                            </li>
+                            <li class="topic">操作系统安全
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">Windows/Linux安全机制</li>
+                                    <li class="sub-topic">用户权限管理</li>
+                                    <li class="sub-topic">日志分析</li>
+                                </ul>
+                            </li>
+                            <li class="topic">防火墙与IDS/IPS
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">iptables配置</li>
+                                    <li class="sub-topic">Snort使用</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="resources">
+                            <div class="resources-title">推荐资源</div>
+                            《网络安全基础》、Wireshark网络分析实战
+                        </div>
+                    </div>
+                    
+                    <div class="track">
+                        <div class="track-title">Web安全基础</div>
+                        <ul class="topics">
+                            <li class="topic">Web技术基础
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">HTML/CSS/JavaScript</li>
+                                    <li class="sub-topic">HTTP协议深入</li>
+                                    <li class="sub-topic">Cookie/Session机制</li>
+                                </ul>
+                            </li>
+                            <li class="topic">常见Web漏洞
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">OWASP Top 10</li>
+                                    <li class="sub-topic">SQL注入</li>
+                                    <li class="sub-topic">XSS/CSRF</li>
+                                </ul>
+                            </li>
+                            <li class="topic">渗透测试基础
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">Kali Linux工具集</li>
+                                    <li class="sub-topic">Burp Suite使用</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="resources">
+                            <div class="resources-title">推荐资源</div>
+                            《Web安全攻防：渗透测试实战指南》、PortSwigger Web Security Academy
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第三阶段 -->
+            <div class="phase">
+                <div class="phase-title">第三阶段：进阶技术 (6-12个月)</div>
+                <div class="tracks">
+                    <div class="track">
+                        <div class="track-title">渗透测试</div>
+                        <ul class="topics">
+                            <li class="topic">信息收集
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">被动/主动侦察</li>
+                                    <li class="sub-topic">子域名枚举</li>
+                                    <li class="sub-topic">端口扫描</li>
+                                </ul>
+                            </li>
+                            <li class="topic">漏洞利用
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">Metasploit框架</li>
+                                    <li class="sub-topic">漏洞编写与利用</li>
+                                </ul>
+                            </li>
+                            <li class="topic">后渗透技术
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">权限提升</li>
+                                    <li class="sub-topic">横向移动</li>
+                                    <li class="sub-topic">持久化控制</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="resources">
+                            <div class="resources-title">推荐资源</div>
+                            《Metasploit渗透测试指南》、Hack The Box平台
+                        </div>
+                    </div>
+                    
+                    <div class="track">
+                        <div class="track-title">逆向工程</div>
+                        <ul class="topics">
+                            <li class="topic">汇编基础
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">x86/x64架构</li>
+                                    <li class="sub-topic">寄存器与指令集</li>
+                                </ul>
+                            </li>
+                            <li class="topic">逆向工具
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">IDA Pro/Ghidra</li>
+                                    <li class="sub-topic">OllyDbg/x64dbg</li>
+                                </ul>
+                            </li>
+                            <li class="topic">恶意代码分析
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">静态分析</li>
+                                    <li class="sub-topic">动态分析</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="resources">
+                            <div class="resources-title">推荐资源</div>
+                            《逆向工程核心原理》、Practical Malware Analysis
+                        </div>
+                    </div>
+                    
+                    <div class="track">
+                        <div class="track-title">二进制安全</div>
+                        <ul class="topics">
+                            <li class="topic">缓冲区溢出
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">栈溢出</li>
+                                    <li class="sub-topic">堆溢出</li>
+                                </ul>
+                            </li>
+                            <li class="topic">漏洞利用缓解技术
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">DEP/ASLR</li>
+                                    <li class="sub-topic">ROP链构造</li>
+                                </ul>
+                            </li>
+                            <li class="topic">二进制加固
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">代码混淆</li>
+                                    <li class="sub-topic">反调试技术</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="resources">
+                            <div class="resources-title">推荐资源</div>
+                            《漏洞利用与渗透测试基础》、LiveOverflow YouTube频道
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第四阶段 -->
+            <div class="phase">
+                <div class="phase-title">第四阶段：专业领域 (1年以上)</div>
+                <div class="tracks">
+                    <div class="track">
+                        <div class="track-title">红队技术</div>
+                        <ul class="topics">
+                            <li class="topic">高级持续威胁(APT)模拟
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">战术、技术与程序(TTPs)</li>
+                                    <li class="sub-topic">隐蔽通信(C2)</li>
+                                </ul>
+                            </li>
+                            <li class="topic">定制工具开发
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">免杀技术</li>
+                                    <li class="sub-topic">后门开发</li>
+                                </ul>
+                            </li>
+                            <li class="topic">物理安全测试
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">RFID/NFC攻击</li>
+                                    <li class="sub-topic">社会工程学</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="resources">
+                            <div class="resources-title">推荐资源</div>
+                            《红队行动指南》、MITRE ATT&CK框架
+                        </div>
+                    </div>
+                    
+                    <div class="track">
+                        <div class="track-title">蓝队防御</div>
+                        <ul class="topics">
+                            <li class="topic">安全运维(SOC)
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">SIEM系统(Splunk, ELK)</li>
+                                    <li class="sub-topic">威胁情报</li>
+                                </ul>
+                            </li>
+                            <li class="topic">数字取证
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">磁盘/内存取证</li>
+                                    <li class="sub-topic">网络取证</li>
+                                </ul>
+                            </li>
+                            <li class="topic">事件响应
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">应急响应流程</li>
+                                    <li class="sub-topic">恶意软件分析</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="resources">
+                            <div class="resources-title">推荐资源</div>
+                            《网络安全监控》、《应急响应与计算机取证》
+                        </div>
+                    </div>
+                    
+                    <div class="track">
+                        <div class="track-title">云安全</div>
+                        <ul class="topics">
+                            <li class="topic">云平台安全
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">AWS/Azure/GCP安全</li>
+                                    <li class="sub-topic">容器安全(Docker, Kubernetes)</li>
+                                </ul>
+                            </li>
+                            <li class="topic">DevSecOps
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">CI/CD管道安全</li>
+                                    <li class="sub-topic">基础设施即代码安全</li>
+                                </ul>
+                            </li>
+                            <li class="topic">云原生安全
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">服务网格安全</li>
+                                    <li class="sub-topic">无服务器安全</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="resources">
+                            <div class="resources-title">推荐资源</div>
+                            《云安全实用指南》、CSA云安全矩阵
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第五阶段 -->
+            <div class="phase">
+                <div class="phase-title">第五阶段：持续学习与认证</div>
+                <div class="tracks">
+                    <div class="track">
+                        <div class="track-title">专业认证</div>
+                        <ul class="topics">
+                            <li class="topic">入门级
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">CompTIA Security+</li>
+                                    <li class="sub-topic">CEH (道德黑客认证)</li>
+                                </ul>
+                            </li>
+                            <li class="topic">中级
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">OSCP (渗透测试认证)</li>
+                                    <li class="sub-topic">CISSP (信息系统安全专家)</li>
+                                </ul>
+                            </li>
+                            <li class="topic">高级
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">OSEE (漏洞利用开发专家)</li>
+                                    <li class="sub-topic">GIAC系列认证</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="track">
+                        <div class="track-title">实践平台</div>
+                        <ul class="topics">
+                            <li class="topic">CTF比赛
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">CTFtime.org</li>
+                                    <li class="sub-topic">Hack The Box</li>
+                                </ul>
+                            </li>
+                            <li class="topic">漏洞研究
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">CVE漏洞分析</li>
+                                    <li class="sub-topic">漏洞赏金计划</li>
+                                </ul>
+                            </li>
+                            <li class="topic">开源贡献
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">安全工具开发</li>
+                                    <li class="sub-topic">文档与翻译</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="track">
+                        <div class="track-title">社区与资源</div>
+                        <ul class="topics">
+                            <li class="topic">技术博客
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">Krebs on Security</li>
+                                    <li class="sub-topic">The Hacker News</li>
+                                </ul>
+                            </li>
+                            <li class="topic">会议与活动
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">DEF CON/Black Hat</li>
+                                    <li class="sub-topic">本地安全Meetup</li>
+                                </ul>
+                            </li>
+                            <li class="topic">在线学习
+                                <ul class="sub-topics">
+                                    <li class="sub-topic">Cybrary</li>
+                                    <li class="sub-topic">SecurityTube</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 可以添加交互逻辑，如点击展开/折叠等
+        document.querySelectorAll('.phase-title').forEach(title => {
+            title.addEventListener('click', () => {
+                const tracks = title.parentElement.querySelector('.tracks');
+                tracks.style.display = tracks.style.display === 'none' ? 'flex' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>
