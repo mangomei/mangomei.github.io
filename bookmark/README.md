@@ -89,6 +89,7 @@
                                     '我的分享@https://gitee.com/mgang/my-share',
                                     'leetcode刷题笔记@https://gitee.com/mgang/leet-code',
                                     'B站web直播入口@https://live.bilibili.com/p/html/web-hime/index.html?visit_id=287t35tjj1us',
+                                    '苹果icloud云盘@https://www.icloud.com.cn/'
                                     
                             ]
                         },
@@ -126,6 +127,13 @@
                                 'zlibrary@https://z-library.sk/',
                                 '图书廊@https://www.tuishulang.com/',
                                 '谷歌学术搜索@https://scholar.google.com/schhp?hl=zh-CN&as_sdt=2007'
+                            ]
+                        },
+                        {
+                            moduleId: 'for-home-design',
+                            moduleName: '装修设计',
+                            parts:[
+                                '酷家乐@https://yun.kujiale.com/cloud/tool/h5/bim?tre=000.000.001.zhuzhan.Newuser_guidetool1215&gs.nav.type=auto-global&__rd=y&_gr_ds=true'
                             ]
                         },
                         {
