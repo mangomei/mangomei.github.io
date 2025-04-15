@@ -89,6 +89,7 @@
                                     '我的分享@https://gitee.com/mgang/my-share',
                                     'leetcode刷题笔记@https://gitee.com/mgang/leet-code',
                                     'B站web直播入口@https://live.bilibili.com/p/html/web-hime/index.html?visit_id=287t35tjj1us',
+                                    '苹果icloud云盘@https://www.icloud.com.cn/'
                                     
                             ]
                         },
