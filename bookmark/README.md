@@ -133,7 +133,7 @@
                             moduleId: 'for-home-design',
                             moduleName: '装修设计',
                             parts:[
-                                '酷家乐@https://yun.kujiale.com/cloud/tool/h5/bim?tre=000.000.001.zhuzhan.Newuser_guidetool1215&gs.nav.type=auto-global&__rd=y&_gr_ds=true'
+                                '酷家乐@https://www.kujiale.com/pub/saas/workbench/pwork/mydesign?gs.nav.type=auto-global&from=zhuzhan_nav'
                             ]
                         },
                         {
