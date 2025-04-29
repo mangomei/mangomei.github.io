@@ -194,6 +194,7 @@
                             moduleName: 'AI相关',
                             parts:[
                                 '深度求索@https://chat.deepseek.com/',
+                                '千问@https://chat.qwen.ai/',
                                 'ChatGPT@https://chatgpt.com/',
                                 'Poe AI@https://poe.com/',
                                 'ChatOpens@https://www.chatopens.com/',
