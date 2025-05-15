@@ -195,6 +195,7 @@
                             parts:[
                                 '深度求索@https://chat.deepseek.com/',
                                 'manus@https://manus.im/app',
+                                '扣子空间@https://space.coze.cn/',
                                 '千问@https://chat.qwen.ai/',
                                 'ChatGPT@https://chatgpt.com/',
                                 'Poe AI@https://poe.com/',
