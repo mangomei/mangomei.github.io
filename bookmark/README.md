@@ -227,7 +227,8 @@
                                 'wps AI@https://ai.wps.cn/',
                                 'AI论文@https://bohrium.dp.tech/',
                                 'fastgpt@https://cloud.fastgpt.cn/chat?appId=678a6fa51b052aaa9de3e95a',
-                                'openrouter@https://openrouter.ai/'
+                                'openrouter@https://openrouter.ai/',
+                                'ai工具集@https://ai-bot.cn/#term-15'
                             ]
                         },
                         {
