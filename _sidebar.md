@@ -44,4 +44,5 @@
 - 世界
     - [物理](world/physic.md)
     - [三体](world/threebody/readme.md)
+- [装修](house/index.md)
 
