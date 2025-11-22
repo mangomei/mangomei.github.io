@@ -71,6 +71,15 @@
                 return {
                     nodes: [
                         {
+                            moduleId: 'search-area',
+                            moduleName: '搜索引擎',
+                            parts:[
+                                    '必应搜索@https://cn.bing.com/',
+                                    '360搜索@https://www.so.com/',
+                                    'google搜索@https://www.google.com/'
+                            ]
+                        },                        
+                        {
                             moduleId: 'my-project',
                             moduleName: '我的项目',
                             parts:[
