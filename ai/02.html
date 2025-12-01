@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepSeek V3.2 震撼发布</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f4d 50%, #0f1129 100%);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 0 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 900;
+            background: linear-gradient(45deg, #00d4ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .date {
+            color: #00d4ff;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        .hero {
+            position: relative;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .hero .subtitle {
+            font-size: 16px;
+            color: #a0aec0;
+            margin-bottom: 20px;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(0, 212, 255, 0.5),
+                             0 0 40px rgba(123, 47, 247, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(0, 212, 255, 0.8),
+                             0 0 60px rgba(123, 47, 247, 0.5);
+            }
+        }
+
+        .model-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease;
+        }
+
+        .model-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .model-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-new {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+        }
+
+        .badge-pro {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .feature-item::before {
+            content: '⚡';
+            position: absolute;
+            left: 0;
+            font-size: 20px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(123, 47, 247, 0.2));
+            border-left: 4px solid #00d4ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .highlight-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #00d4ff;
+        }
+
+        .benchmark {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .benchmark-item {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .benchmark-value {
+            font-size: 28px;
+            font-weight: 900;
+            color: #00d4ff;
+            margin-bottom: 5px;
+        }
+
+        .benchmark-label {
+            font-size: 12px;
+            color: #a0aec0;
+        }
+
+        .gold-medal {
+            display: inline-block;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            margin: 15px 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .tech-specs {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .spec-row:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            color: #a0aec0;
+            font-size: 14px;
+        }
+
+        .spec-value {
+            font-weight: 600;
+            color: #00d4ff;
+        }
+
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, #00d4ff, #7b2ff7);
+            border: none;
+            border-radius: 15px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 30px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #a0aec0;
+            font-size: 12px;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">DEEPSEEK</div>
+            <div class="date">2025.12.01 重磅发布</div>
+        </div>
+
+        <div class="hero">
+            <h1>DeepSeek V3.2<br>双子星降临</h1>
+            <p class="subtitle">开源推理模型的新纪元</p>
+        </div>
+
+        <!-- V3.2 标准版 -->
+        <div class="model-card">
+            <div class="model-title">
+                DeepSeek-V3.2
+                <span class="badge badge-new">NEW</span>
+            </div>
+            <p style="color: #a0aec0; margin-bottom: 20px;">
+                你的日常 AI 驾驶舱 - GPT-5 级别性能
+            </p>
+
+            <div class="highlight-box">
+                <div class="highlight-title">🎯 核心突破</div>
+                <ul class="feature-list">
+                    <li class="feature-item">首个将思考整合到工具使用中的模型</li>
+                    <li class="feature-item">支持思考模式与非思考模式双模式</li>
+                    <li class="feature-item">长文本推理成本降低 50-70%</li>
+                </ul>
+            </div>
+
+            <div class="tech-specs">
+                <div class="spec-row">
+                    <span class="spec-label">架构</span>
+                    <span class="spec-value">685B MoE</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">注意力机制</span>
+                    <span class="spec-value">DeepSeek 稀疏注意力(DSA)</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">上下文长度</span>
+                    <span class="spec-value">128K tokens</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">可用平台</span>
+                    <span class="spec-value">App / Web / API</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- V3.2 Speciale 版 -->
+        <div class="model-card">
+            <div class="model-title">
+                DeepSeek-V3.2-Speciale
+                <span class="badge badge-pro">PRO</span>
+            </div>
+            <p style="color: #a0aec0; margin-bottom: 20px;">
+                极致推理性能 - 媲美 Gemini 3.0 Pro
+            </p>
+
+            <div class="gold-medal">
+                🏅 金牌级别表现
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-title">🏆 竞赛成就</div>
+                <p style="margin-bottom: 15px;">在顶级数学和编程竞赛中取得金牌级成绩:</p>
+                <ul class="feature-list">
+                    <li class="feature-item">IMO 2025 (国际数学奥林匹克)</li>
+                    <li class="feature-item">CMO 2024 (中国数学奥林匹克)</li>
+                    <li class="feature-item">ICPC 世界总决赛 2025</li>
+                    <li class="feature-item">IOI 2025 (国际信息学奥林匹克)</li>
+                </ul>
+            </div>
+
+            <div class="benchmark">
+                <div class="benchmark-item">
+                    <div class="benchmark-value">96.0%</div>
+                    <div class="benchmark-label">AIME 2025</div>
+                </div>
+                <div class="benchmark-item">
+                    <div class="benchmark-value">99.2%</div>
+                    <div class="benchmark-label">HMMT 2025</div>
+                </div>
+                <div class="benchmark-item">
+                    <div class="benchmark-value">2701</div>
+                    <div class="benchmark-label">CodeForces 评分</div>
+                </div>
+                <div class="benchmark-item">
+                    <div class="benchmark-value">73.1%</div>
+                    <div class="benchmark-label">SWE Verified</div>
+                </div>
+            </div>
+
+            <div class="tech-specs" style="margin-top: 20px;">
+                <div class="spec-row">
+                    <span class="spec-label">可用方式</span>
+                    <span class="spec-value">仅限 API</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">临时端点截止</span>
+                    <span class="spec-value">2025.12.15</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">定价</span>
+                    <span class="spec-value">同 V3.2</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 训练数据创新 -->
+        <div class="highlight-box">
+            <div class="highlight-title">🔬 训练创新</div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <strong>1,800+ 模拟环境</strong><br>
+                    大规模智能体训练数据合成
+                </li>
+                <li class="feature-item">
+                    <strong>85,000+ 复杂指令</strong><br>
+                    强化学习任务覆盖多个领域
+                </li>
+                <li class="feature-item">
+                    <strong>后训练计算预算</strong><br>
+                    超过预训练成本的 10%
+                </li>
+            </ul>
+        </div>
+
+        <!-- 开源信息 -->
+        <div class="model-card">
+            <div class="model-title">💎 完全开源</div>
+            <ul class="feature-list">
+                <li class="feature-item">MIT 开源协议</li>
+                <li class="feature-item">模型权重已发布在 Hugging Face</li>
+                <li class="feature-item">技术报告完全公开</li>
+                <li class="feature-item">推理代码开源可用</li>
+            </ul>
+        </div>
+
+        <a href="https://huggingface.co/deepseek-ai" class="cta-button">
+            立即体验 DeepSeek V3.2
+        </a>
+
+        <div class="footer">
+            © 2025 DeepSeek AI · 杭州深度求索<br>
+            开源 AI 的力量，触手可及
+        </div>
+    </div>
+</body>
+</html>

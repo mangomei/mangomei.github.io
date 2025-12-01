@@ -208,6 +208,7 @@
                                 '千问@https://chat.qwen.ai/',
                                 'ChatGPT@https://chatgpt.com/',
                                 'Poe AI@https://poe.com/',
+                                'lobechat@https://lobechat.com/',
                                 'ChatOpens@https://www.chatopens.com/',
                                 '硅基流动模型工厂@https://cloud.siliconflow.cn/models',
                                 '火山方舟@https://console.volcengine.com/ark/region:ark+cn-beijing/experience/chat',
