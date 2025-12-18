@@ -206,6 +206,8 @@
                                 'manus@https://manus.im/app',
                                 '扣子空间@https://space.coze.cn/',
                                 '千问@https://chat.qwen.ai/',
+                                'MiMoChat@https://mimo.xiaomi.com/zh',
+                                'MiMoApi@https://platform.xiaomimimo.com/#/docs/welcome',
                                 'ChatGPT@https://chatgpt.com/',
                                 'Poe AI@https://poe.com/',
                                 'lobechat@https://lobechat.com/',
